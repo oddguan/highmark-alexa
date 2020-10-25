@@ -68,6 +68,40 @@ const GetDeductibleLinkedHandler = {
   },
 };
 
+const PrivacyRightsSum = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      !isAccountNotLinked(handlerInput) &&
+      request.intent.name === 'PrivacyConsentIntent'    //  TODO
+    );
+  }, 
+  handle(handlerInput) {
+    const say = 'You have rights with respect to your protected health information';   //  TODO
+    const repromptText = 'For each statement, answer OK to skip or more details to get more information of your rights';
+    return handlerInput.responseBuilder
+      .speak(say + repromptText)
+      .reprompt(repromptText)
+      .getResponse();
+  },
+};
+
+const PrivacyRightsQues1Sum = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      !isAccountNotLinked(handlerInput)
+    );
+  },
+  handle(handlerInput) {
+    const repromptText = 'You have the right to access your PHI';
+    return handlerInput.responseBuilder
+      .speak(repromptText)
+      .reprompt(repromptText)
+      .getResponse();
+  }
+};
+
 const GetDeductibleNotLinkedHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
