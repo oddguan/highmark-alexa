@@ -344,9 +344,6 @@ const OptionsHandler = {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     let repromptText = 'Answer yes, no or more details. ';
-    if (detail_map[attributes.skillState][0] === detail_map[attributes.skillState][1]) {
-      repromptText = 'Answer yes or no to the next question. ';
-    }
     let say = '';
     if (option === 'AMAZON.YesIntent' || option === 'AMAZON.NoIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
@@ -355,6 +352,9 @@ const OptionsHandler = {
     }
     if (attributes.skillState.includes('Rights')) {
       repromptText = 'Answer yes to skip or more details. ';
+    }
+    if (detail_map[attributes.skillState][0] === detail_map[attributes.skillState][1]) {
+      repromptText = 'Answer yes to the next question. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
