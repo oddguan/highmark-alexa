@@ -329,14 +329,10 @@ const GetLinkedInfoInterceptor = {
       // console.log('GetLinkedInfoInterceptor: getUserData: ', userData);
       if (userData.Username !== undefined) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        sessionAttributes.firstName = getAttribute(
-          userData.UserAttributes,
-          'given_name'
-        );
-        sessionAttributes.surname = getAttribute(
-          userData.UserAttributes,
-          'family_name'
-        );
+        const fullName = getAttribute(userData.UserAttributes, 'name');
+        const [firstName, lastName] = fullName.split(' ');
+        sessionAttributes.firstName = firstName;
+        sessionAttributes.lastName = lastName;
         sessionAttributes.emailAddress = getAttribute(
           userData.UserAttributes,
           'email'
@@ -344,10 +340,6 @@ const GetLinkedInfoInterceptor = {
         sessionAttributes.phoneNumber = getAttribute(
           userData.UserAttributes,
           'phone_number'
-        );
-        sessionAttributes.streetAddress = getAttribute(
-          userData.UserAttributes,
-          'address'
         );
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
       } else {
