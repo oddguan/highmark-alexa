@@ -353,7 +353,7 @@ const OptionsHandler = {
     if (attributes.skillState.includes('Rights')) {
       repromptText = 'Answer yes to skip or more details. ';
     }
-    if (detail_map[attributes.skillState][0] !== 'allDone' && detail_map[attributes.skillState][0] === detail_map[attributes.skillState][1]) {
+    if (detail_map[attributes.skillState] && detail_map[attributes.skillState][0] !== 'allDone' && detail_map[attributes.skillState][0] === detail_map[attributes.skillState][1]) {
       if (attributes.skillState.includes('Rights')) {
         repromptText = 'Answer yes to listen to the next question. ';
       } else {
