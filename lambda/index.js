@@ -451,7 +451,7 @@ function isAccountLinked(handlerInput) {
 }
 
 function isAccountNotLinked(handlerInput) {
-  accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
+  const accessToken = handlerInput.requestEnvelope.context.System.user.accessToken;
   return !accessToken;
 }
 
@@ -484,14 +484,16 @@ function getEnvVar(envVarName, defaultValue) {
 const skillBuilder = Alexa.SkillBuilders.standard();
 exports.handler = skillBuilder
   .addRequestHandlers(
-    CheckAccountLinkedHandler,
+    // CheckAccountLinkedHandler,
     GetDeductibleNotLinkedHandler,
     GetDeductibleLinkedHandler,
     SayHelloHandler,
     RequestInfoHandler,
     HelpHandler,
     ExitHandler,
-    SessionEndedRequestHandler
+    SessionEndedRequestHandler,
+    PrivacyRightsSummary,
+    OptionsHandler,
   )
   .addRequestInterceptors(
     RequestLog,
