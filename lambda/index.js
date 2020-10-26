@@ -88,7 +88,7 @@ const PrivacyRightsSummary = {
     const say = 'You have rights with respect to your protected health information';   //  TODO
     const repromptText = 'For each statement, answer OK to skip or more details to get more information of your rights';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    attribute.skillState = 'PrivacyRightsSummary';
+    attributes.skillState = 'PrivacyRightsSummary';
     handlerInput.attributesManager.setSessionAttributes(attributes);
     return handlerInput.responseBuilder
       .speak(say + repromptText)
