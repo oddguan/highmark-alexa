@@ -42,6 +42,11 @@ const languageStrings = {
 };
 
 const detail_map = {
+  'MainUseSummary': [],
+  'SharePHI': [],    //  TODO
+  'PlanSponsor': [],
+  'PublicHealth': [],
+  'Oversight': [],
   'PrivacyRightsSummary': ['allDone', 'PrivacyRightsQuestion1Summary'],
   'PrivacyRightsQuestion1Summary': ['allDone', 'PrivacyRightsQuestion1Detail1'],
   'PrivacyRightsQuestion1Detail1': ['allDone', 'allDone']
@@ -87,7 +92,7 @@ const GetDeductibleLinkedHandler = {
   },
 };
 
-const PrivacyRightsSummary = {
+const MainUseDisclosure = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
     return (
@@ -96,10 +101,11 @@ const PrivacyRightsSummary = {
     );
   },
   handle(handlerInput) {
-    const say = 'You have rights with respect to your protected health information';   //  TODO
-    const repromptText = 'For each statement, answer Yes to skip or more details to get more information of your rights';
+    const say = 'We will ask you servel privacy-related questions and setting options. ' +
+                  'So, first, can we collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively?';   //  TODO
+    const repromptText = 'Answer Yes, No for the question or More Details to get more information.';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    attributes.skillState = 'PrivacyRightsSummary';
+    attributes.skillState = 'MainUseSummary';
     handlerInput.attributesManager.setSessionAttributes(attributes);
     return handlerInput.responseBuilder
       .speak(say + repromptText)
@@ -121,7 +127,10 @@ const OptionsHandler = {
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    const repromptText = 'Answer Yes to skip or more details to get more information';
+    let repromptText = 'Answer Yes, No for the question or More Details to get more information.';
+    if (attributes.skillState.includes('rights')) {
+      repromptText = 'Answer Yes to skip or more details to get more information';
+    }
     let say = '';
     if (option === 'AMAZON.YesIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
@@ -494,7 +503,7 @@ exports.handler = skillBuilder
     HelpHandler,
     ExitHandler,
     SessionEndedRequestHandler,
-    PrivacyRightsSummary,
+    MainUseDisclosure,
     OptionsHandler,
   )
   .addRequestInterceptors(
