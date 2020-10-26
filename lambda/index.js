@@ -151,7 +151,7 @@ const detail_map = {
 
 const question_map = {
   PrivacyRightsSummary:
-    'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights',
+    'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights. ',
   MainUseSummaryDetail1:
     'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse. ',
   MainUseSummaryDetail2:
@@ -344,17 +344,17 @@ const OptionsHandler = {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     let repromptText = 'Answer yes, no or more details. ';
-    if (attributes.skillState.includes('Rights')) {
-      repromptText = 'Answer Yes to skip or more details. ';
-    }
     if (detail_map[attributes.skillState][0] === detail_map[attributes.skillState][1]) {
-      repromptText = 'Answer Yes to the next question. ';
+      repromptText = 'Answer yes or no to the next question. ';
     }
     let say = '';
     if (option === 'AMAZON.YesIntent' || option === 'AMAZON.NoIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
     } else {
       attributes.skillState = detail_map[attributes.skillState][1];
+    }
+    if (attributes.skillState.includes('Rights')) {
+      repromptText = 'Answer yes to skip or more details. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
