@@ -104,7 +104,7 @@ const question_map = {
     'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights',
   'MainUseSummaryDetail1': 'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse that relates to: (i) your past, present, or future physical or mental health or condition; (ii) the provision of health care to you; or (iii) the past, present, or future payment for the provision of health care to you. If you need to know more about how we may use and disclose protected health information about you for payment, please answer more datails.',
   'MainUseSummaryDetail2': 'We may use or disclose your protected health information to pay claims from doctors, hospitals, pharmacies and others for services delivered to you that are covered by your health plan, to determine your eligibility for benefits, to coordinate benefits, to examine medical necessity, to obtain premiums, or to issue explanations of benefits or payments to the person who subscribes to the health plan in which you participate. If you need to know more about how we may use and disclose protected health information about you for health care operations, please answer more datails.',
-  'MainUseSummaryDetail3':'We may use or disclose your protected health information to rate our risk and determine the premium for your health plan, to conduct quality assessment and improvement activities, to credential health care providers, to engage in care coordination or case management, or to manage our business.',
+  'MainUseSummaryDetail3': 'We may use or disclose your protected health information to rate our risk and determine the premium for your health plan, to conduct quality assessment and improvement activities, to credential health care providers, to engage in care coordination or case management, or to manage our business.',
   'SharePHIDetail1': 'In connection with our payment and health care operations activities, we contract with business associates to perform various functions on our behalf or to provide certain types of services (such as member service support, utilization management, subrogation, or pharmacy benefit management). To perform these functions or to provide the services, business associates will receive, create, maintain, use, or disclose protected health information, but only after we require the business associates to agree in writing to contract terms designed to appropriately safeguard your information. If you need to know more about what other covered entities, please answer more details.',
   'SharePHIDetail2': 'we may use or disclose your protected health information to assist health care providers in connection with their treatment or payment activities, or to assist other covered entities in connection with certain of their health care operations. For example, we may disclose your protected health information to a health care provider when needed by the provider to render treatment to you, and we may disclose protected health information to another covered entity to conduct health care operations in the areas of quality assurance and improvement activities, or accreditation, certification, licensing or credentialing.',
   'PlanSponsorDetail1': 'A plan sponsor may contact us regarding a member’s question, concern, issue regarding claim, benefits, service, coverage, etc. We may also disclose summary health information about the enrollees in your group health plan to the plan sponsor to obtain premium bids for the health insurance coverage offered through your group health plan or to decide whether to modify, amend or terminate your group health plan.',
@@ -128,18 +128,18 @@ const question_map = {
     'You have the right to look at or get copies of your protected health information.  we will provide the information in a readable electronic format as mutually agreed upon. You have two ways to get the copy.',
 
   'PrivacyRightsQuestion1Detail2':
-   'To get the copy, you may obtain a form to request access by using the contact information. You may also request access by sending us a letter to the address. The contact information and address are listed on our website. It may cost to make a request.',
+    'To get the copy, you may obtain a form to request access by using the contact information. You may also request access by sending us a letter to the address. The contact information and address are listed on our website. It may cost to make a request.',
 
   'PrivacyRightsQuestion1Detail3':
     'The first request within a 12-month period will be free. If you request access to your designated record set more than once in a 12-month period, we may charge you a reasonable, cost-based fee for responding to these additional requests.',
-  
-  'PrivacyRightsQuestion2Summary':  
+
+  'PrivacyRightsQuestion2Summary':
     'You have the right to an accounting.',
 
   'PrivacyRightsQuestion2Detail1':
     'You have a right to an accounting of certain disclosures of your protected health information that are for reasons other than treatment, payment or health care operations.',
 
-  'PrivacyRightsQuestion2Detail2': 
+  'PrivacyRightsQuestion2Detail2':
     'An accounting will include the date(s) of the disclosure, to whom we made the disclosure, a brief description of the information disclosed, and the purpose for the disclosure. You have two ways to make a request.',
 
   'PrivacyRightsQuestion2Detail3':
@@ -174,7 +174,7 @@ const question_map = {
 
   'PrivacyRightsQuestion5Detail1':
     'If you believe that your protected health information is incorrect or incomplete, you have the right to request that we amend your protected health information. There are some requirements in the request.',
-  
+
   'PrivacyRightsQuestion5Detail2':
     'Your request must be in writing, and it must explain why the information should be amended. And we may deny your request.',
 
