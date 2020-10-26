@@ -86,7 +86,7 @@ const PrivacyRightsSummary = {
   }, 
   handle(handlerInput) {
     const say = 'You have rights with respect to your protected health information';   //  TODO
-    const repromptText = 'For each statement, answer OK to skip or more details to get more information of your rights';
+    const repromptText = 'For each statement, answer Yes to skip or more details to get more information of your rights';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     attributes.skillState = 'PrivacyRightsSummary';
     handlerInput.attributesManager.setSessionAttributes(attributes);
@@ -100,14 +100,14 @@ const PrivacyRightsSummary = {
 const OptionsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
-    return (
+    return(
       !isAccountNotLinked(handlerInput) &&
-      request.intent.name === 'AMAZON.YesIntent' ||     //  TODO
+      (request.intent.name === 'AMAZON.YesIntent' ||
       request.intent.name === 'AMAZON.NoIntent' ||
-      request.intent.name === 'MoreDetailsIntent'
+      request.intent.name === 'MoreDetailsIntent')
     );
   }, 
-  hanlde(handlerInput) {
+  handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     const repromptText = 'Answer OK to skip or more details to get more information';
