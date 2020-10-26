@@ -112,16 +112,15 @@ const OptionsHandler = {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     const repromptText = 'Answer OK to skip or more details to get more information';
     let say = '';
-    let nextAttributes = '';
     if (option === 'AMAZON.YesIntent') {
-      nextAttributes = detail_map[attributes][0];
+      attributes.skillState = detail_map[attributes.skillState][0];
     } else if (option === 'AMAZON.NoIntent') {
 
     } else {
-      nextAttributes = detail_map[attributes][1];
+      attributes.skillState = detail_map[attributes.skillState][1];
     }
-    handlerInput.attributesManager.setSessionAttributes(nextAttributes);
-    say = question_map[nextAttributes];
+    handlerInput.attributesManager.setSessionAttributes(attributes);
+    say = question_map[attributes.skillState];
     return handlerInput.responseBuilder
       .speak(say + repromptText)
       .reprompt(repromptText)
