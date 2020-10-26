@@ -41,13 +41,24 @@ const languageStrings = {
   },
 };
 
-const detail_map = {'PrivacyRightsSummary': ['allDone', 'PrivacyRightsQuestion1Summary'],
-                    'PrivacyRightsQuestion1Summary': ['allDone', 'PrivacyRightsQuestion1Detail1'],
-                    'PrivacyRightsQuestion1Detail1': ['allDone', 'allDone']};
+const detail_map = {
+  'PrivacyRightsSummary': ['allDone', 'PrivacyRightsQuestion1Summary'],
+  'PrivacyRightsQuestion1Summary': ['allDone', 'PrivacyRightsQuestion1Detail1'],
+  'PrivacyRightsQuestion1Detail1': ['allDone', 'allDone']
+};
 
-const question_map = {'PrivacyRightsQuestion1Summary': 'You have the right to access your PHI.',
-                      'PrivacyRightsQuestion1Detail1': 'To get the copy, you may obtain a form to request access by using the contact information. You may also request access by sending us a letter to the address. The contact information and address are listed on our website. It may cost to make a request.',
-                      'allDone': 'All Done! Have fun using our products.'};
+const question_map = {
+  'PrivacyRightsQuestion1Summary':
+    'You have the right to access your PHI.',
+
+  'PrivacyRightsQuestion1Detail1':
+    'To get the copy, you may obtain a form to request access by using the contact information.'
+    + ' You may also request access by sending us a letter to the address. The contact information'
+    + ' and address are listed on our website. It may cost to make a request.',
+
+  'allDone':
+    'All Done! Have fun using our products.'
+};
 
 const GetDeductibleLinkedHandler = {
   canHandle(handlerInput) {
@@ -83,7 +94,7 @@ const PrivacyRightsSummary = {
       !isAccountNotLinked(handlerInput) &&
       request.intent.name === 'PrivacyConsentIntent'    //  TODO
     );
-  }, 
+  },
   handle(handlerInput) {
     const say = 'You have rights with respect to your protected health information';   //  TODO
     const repromptText = 'For each statement, answer Yes to skip or more details to get more information of your rights';
@@ -100,17 +111,17 @@ const PrivacyRightsSummary = {
 const OptionsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
-    return(
+    return (
       !isAccountNotLinked(handlerInput) &&
       (request.intent.name === 'AMAZON.YesIntent' ||
-      request.intent.name === 'AMAZON.NoIntent' ||
-      request.intent.name === 'MoreDetailsIntent')
+        request.intent.name === 'AMAZON.NoIntent' ||
+        request.intent.name === 'MoreDetailsIntent')
     );
-  }, 
+  },
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    const repromptText = 'Answer OK to skip or more details to get more information';
+    const repromptText = 'Answer Yes to skip or more details to get more information';
     let say = '';
     if (option === 'AMAZON.YesIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
