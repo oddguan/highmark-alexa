@@ -347,10 +347,12 @@ const OptionsHandler = {
     if (attributes.skillState.includes('Rights')) {
       repromptText = 'Answer Yes to skip or more details. ';
     }
+    if (detail_map[attributes.skillState][0] === detail_map[attributes.skillState][1]) {
+      repromptText = 'Answer Yes to the next question. ';
+    }
     let say = '';
-    if (option === 'AMAZON.YesIntent') {
+    if (option === 'AMAZON.YesIntent' || option === 'AMAZON.NoIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
-    } else if (option === 'AMAZON.NoIntent') {
     } else {
       attributes.skillState = detail_map[attributes.skillState][1];
     }
