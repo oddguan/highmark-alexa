@@ -102,19 +102,20 @@ const OptionsHandler = {
     const { request } = handlerInput.requestEnvelope;
     return (
       !isAccountNotLinked(handlerInput) &&
-      request.intent.name === 'YESIntent' ||     //  TODO
-      request.intent.name === 'NoIntent' ||
-      request.intent.name === 'MoreIntent'
+      request.intent.name === 'AMAZON.YesIntent' ||     //  TODO
+      request.intent.name === 'AMAZON.NoIntent' ||
+      request.intent.name === 'MoreDetailsIntent'
     );
   }, 
   hanlde(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
+    const repromptText = 'Answer OK to skip or more details to get more information';
     let say = ''
     let nextAttributes = '';
-    if (option === 'YESIntent') {
+    if (option === 'AMAZON.YesIntent') {
       nextAttributes = detail_map.get(attributes)[0];
-    } else if (option === 'NoIntent') {
+    } else if (option === 'AMAZON.NoIntent') {
 
     } else {
       nextAttributes = detail_map.get(attributes)[1];
