@@ -42,6 +42,39 @@ const languageStrings = {
 };
 
 const detail_map = {
+  'MainUseSummary': ['SharePHI', 'MainUseSummaryDetail1'],
+  'MainUseSummaryDetail1': ['SharePHI', 'MainUseSummaryDetail2'],
+  'MainUseSummaryDetail2': ['SharePHI', 'MainUseSummaryDetail3'],
+  'MainUseSummaryDetail3': ['SharePHI', 'SharePHI'],
+  'SharePHI': ['PlanSponsor', 'SharePHIDetail1'],
+  'SharePHIDetail1': ['PlanSponsor', 'SharePHIDetail2'],
+  'SharePHIDetail2': ['PlanSponsor', 'PlanSponsor'],
+  'PlanSponsor': ['PublicHealth', 'PlanSponsorDetail1'],
+  'PlanSponsorDetail1': ['PublicHealth', 'PublicHealth'],
+  'PublicHealth': ['Oversight', 'PublicHealthDetail1'],
+  'PublicHealthDetail1': ['Oversight', 'Oversight'],
+  'Oversight': ['LegalProceedings', 'OversightDetail1'],
+  'OversightDetail1': ['LegalProceedings', 'LegalProceedings'],
+  'LegalProceedings': ['LawEnforcementOfficials', 'LegalProceedingsDetail1'],
+  'LegalProceedingsDetail1': ['LawEnforcementOfficials', 'LawEnforcementOfficials'],
+  'LawEnforcementOfficials': ['Agencies', 'LawEnforcementOfficialsDetail1'],
+  'LawEnforcementOfficialsDetail1': ['Agencies', 'Agencies'],
+  'Agencies': ['Research', 'AgenciesDetail1'],
+  'AgenciesDetail1': ['Research', 'Research'],
+  'Research': ['PreventThreat', 'ResearchDetail1'],
+  'ResearchDetail1': ['PreventThreat', 'PreventThreat'],
+  'PreventThreat': ['NationSecurity', 'PreventThreatDetail1'],
+  'PreventThreatDetail1': ['NationSecurity', 'NationSecurity'],
+  'NationSecurity': ['Inmates', 'NationSecurityDetail1'],
+  'NationSecurityDetail1': ['Inmates', 'Inmates'],
+  'Inmates': ['WorkersCompensation', 'InmatesDetail1'],
+  'InmatesDetail1': ['WorkersCompensation', 'WorkersCompensation'],
+  'WorkersCompensation': ['Others', 'WorkersCompensationDetail1'],
+  'WorkersCompensationDetail1': ['Others', 'Others'],
+  'Others': ['Underwriting', 'OthersDetail1'],
+  'OthersDetail1': ['Underwriting', 'Underwriting'],
+  'Underwriting': ['PrivacyRightsSummary', 'UnderwritingDetail1'],
+  'UnderwritingDetail1': ['PrivacyRightsSummary', 'PrivacyRightsSummary'],
   'PrivacyRightsSummary': ['allDone', 'PrivacyRightsQuestion1Summary'],
   'PrivacyRightsQuestion1Summary': ['PrivacyRightsQuestion2Summary', 'PrivacyRightsQuestion1Detail1'],
   'PrivacyRightsQuestion1Detail1': ['PrivacyRightsQuestion2Summary', 'PrivacyRightsQuestion1Detail2'],
@@ -67,9 +100,26 @@ const detail_map = {
 };
 
 const question_map = {
-
   'PrivacyRightsSummary':
     'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights',
+  'MainUseSummaryDetail1': 'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse that relates to: (i) your past, present, or future physical or mental health or condition; (ii) the provision of health care to you; or (iii) the past, present, or future payment for the provision of health care to you. If you need to know more about how we may use and disclose protected health information about you for payment, please answer more datails.',
+  'MainUseSummaryDetail2': 'We may use or disclose your protected health information to pay claims from doctors, hospitals, pharmacies and others for services delivered to you that are covered by your health plan, to determine your eligibility for benefits, to coordinate benefits, to examine medical necessity, to obtain premiums, or to issue explanations of benefits or payments to the person who subscribes to the health plan in which you participate. If you need to know more about how we may use and disclose protected health information about you for health care operations, please answer more datails.',
+  'MainUseSummaryDetail3':'We may use or disclose your protected health information to rate our risk and determine the premium for your health plan, to conduct quality assessment and improvement activities, to credential health care providers, to engage in care coordination or case management, or to manage our business.',
+  'SharePHIDetail1': 'In connection with our payment and health care operations activities, we contract with business associates to perform various functions on our behalf or to provide certain types of services (such as member service support, utilization management, subrogation, or pharmacy benefit management). To perform these functions or to provide the services, business associates will receive, create, maintain, use, or disclose protected health information, but only after we require the business associates to agree in writing to contract terms designed to appropriately safeguard your information. If you need to know more about what other covered entities, please answer more details.',
+  'SharePHIDetail2': 'we may use or disclose your protected health information to assist health care providers in connection with their treatment or payment activities, or to assist other covered entities in connection with certain of their health care operations. For example, we may disclose your protected health information to a health care provider when needed by the provider to render treatment to you, and we may disclose protected health information to another covered entity to conduct health care operations in the areas of quality assurance and improvement activities, or accreditation, certification, licensing or credentialing.',
+  'PlanSponsorDetail1': 'A plan sponsor may contact us regarding a member’s question, concern, issue regarding claim, benefits, service, coverage, etc. We may also disclose summary health information about the enrollees in your group health plan to the plan sponsor to obtain premium bids for the health insurance coverage offered through your group health plan or to decide whether to modify, amend or terminate your group health plan.',
+  'PublicHealthDetail1': 'For example, we may use or disclose information for the purpose of preventing or controlling disease, injury, or disability.',
+  'OversightDetail1': 'A health oversight agency for activities authorized by law includes  audits; investigations; inspections; licensure or disciplinary actions; or civil, administrative, or criminal proceedings or actions. Oversight agencies seeking this information include government agencies that oversee: (i) the health care system; (ii) government benefit programs; (iii)other government regulatory programs; and (iv) compliance with civil rights laws.',
+  'LegalProceedingsDetail1': 'We may disclose your protected health information: (1) in the course of any judicial or administrative proceeding; (2) in response to an order of a court or administrative tribunal (to the extent such disclosure is expressly authorized); and (3) in response to a subpoena, a discovery request, or other lawful process, once we have met all administrative requirements of the HIPAA Privacy Rule. For example, we may disclose your protected health information in response to a subpoena for such information.',
+  'LawEnforcementOfficialsDetail1': 'For example, some of the reasons for such a disclosure may include, but not be limited to: (1) it is required by law or some other legal process; or (2) it is necessary to locate or identify a suspect, fugitive, material witness, or missing person.',
+  'AgenciesDetail1': 'We may disclose protected health information to a coroner or medical examiner for purposes of identifying a deceased person, determining a cause of death, or for the coroner or medical examiner to perform other duties authorized by law. We also may disclose, as authorized by law, information to funeral directors so that they may carry out their duties. Further, we may disclose protected health information to organizations that handle organ, eye, or tissue donation and transplantation.',
+  'ResearchDetail1': 'We may disclose your protected health information to researchers when an institutional review board or privacy board has: (1) reviewed the research proposal and established protocols to ensure the privacy of the information; and (2) approved the research.',
+  'PreventThreatDetail1': 'Consistent with applicable federal and state laws, we may disclose your protected health information if we believe that the disclosure is necessary to prevent or lessen a serious and imminent threat to the health or safety of a person or the public.',
+  'NationSecurityDetail1': 'Under certain conditions, we may disclose your protected health information if you are, or were, Armed Forces personnel for activities deemed necessary by appropriate military command authorities. If you are a member of foreign military service, we may disclose, in certain circumstances, your information to the foreign military authority. We also may disclose your protected health information to authorized federal officials for conducting national security and intelligence activities, and for the protection of the President, other authorized persons, or heads of state.',
+  'InmatesDetail1': 'If you are an inmate of a correctional institution, we may disclose your protected health information to the correctional institution or to a law enforcement official for: (1) the institution to provide health care to you; (2) your health and safety and the health and safety of others; or (3) the safety and security of the correctional institution.',
+  'WorkersCompensationDetail1': 'We may disclose your protected health information to comply with workers’ compensation laws and other similar programs that provide benefits for work-related injuries or illnesses.',
+  'OthersDetail1': 'Unless you object, we may disclose your protected health information to a friend or family member that you have identified as being involved in your health care. We also may disclose your information to an entity assisting in a disaster relief effort so that your family can be notified about your condition, status, and location. If you are not present or able to agree to these disclosures of your protected health information, then we may, using our professional judgment, determine whether the disclosure is in your best interest.',
+  'UnderwritingDetail1': 'We may disclose your protected health information for underwriting purposes; however, we are prohibited from using or disclosing your genetic information for these purposes.',
 
   'PrivacyRightsQuestion1Summary':
     'You have the right to access your PHI.',
@@ -175,7 +225,7 @@ const MainUseDisclosure = {
   },
   handle(handlerInput) {
     const say = 'We will ask you servel privacy-related questions and setting options. ' +
-                  'So, first, can we collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively?';   //  TODO
+      'So, first, can we collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively?';   //  TODO
     const repromptText = 'Answer Yes, No for the question or More Details to get more information.';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     attributes.skillState = 'MainUseSummary';
