@@ -41,6 +41,14 @@ const languageStrings = {
   },
 };
 
+const detail_map = {'PrivacyRightsSummary': ['allDone', 'PrivacyRightsQuestion1Summary'],
+                    'PrivacyRightsQuestion1Summary': ['allDone', 'PrivacyRightsQuestion1Detail1'],
+                    'PrivacyRightsQuestion1Detail1': ['allDone', 'allDone']};
+
+const question_map = {'PrivacyRightsQuestion1Summary': 'You have the right to access your PHI.',
+                      'PrivacyRightsQuestion1Detail1': 'To get the copy, you may obtain a form to request access by using the contact information. You may also request access by sending us a letter to the address. The contact information and address are listed on our website. It may cost to make a request.',
+                      'allDone': 'All Done! Have fun using our products.'};
+
 const GetDeductibleLinkedHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
@@ -68,7 +76,7 @@ const GetDeductibleLinkedHandler = {
   },
 };
 
-const PrivacyRightsSum = {
+const PrivacyRightsSummary = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
     return (
@@ -79,6 +87,9 @@ const PrivacyRightsSum = {
   handle(handlerInput) {
     const say = 'You have rights with respect to your protected health information';   //  TODO
     const repromptText = 'For each statement, answer OK to skip or more details to get more information of your rights';
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    attribute.skillState = 'PrivacyRightsSummary';
+    handlerInput.attributesManager.setSessionAttributes(attributes);
     return handlerInput.responseBuilder
       .speak(say + repromptText)
       .reprompt(repromptText)
@@ -86,21 +97,36 @@ const PrivacyRightsSum = {
   },
 };
 
-const PrivacyRightsQues1Sum = {
+const OptionsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
     return (
-      !isAccountNotLinked(handlerInput)
+      !isAccountNotLinked(handlerInput) &&
+      request.intent.name === 'YESIntent' ||     //  TODO
+      request.intent.name === 'NoIntent' ||
+      request.intent.name === 'MoreIntent'
     );
-  },
-  handle(handlerInput) {
-    const repromptText = 'You have the right to access your PHI';
+  }, 
+  hanlde(handlerInput) {
+    const option = handlerInput.requestEnvelope.request.intent.name;
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    let say = ''
+    let nextAttributes = '';
+    if (option === 'YESIntent') {
+      nextAttributes = detail_map.get(attributes)[0];
+    } else if (option === 'NoIntent') {
+
+    } else {
+      nextAttributes = detail_map.get(attributes)[1];
+    }
+    handlerInput.attributesManager.setSessionAttributes(nextAttributes);
+    say = question_map.get(nextAttributes);
     return handlerInput.responseBuilder
-      .speak(repromptText)
+      .speak(say + repromptText)
       .reprompt(repromptText)
       .getResponse();
   }
-};
+}
 
 const GetDeductibleNotLinkedHandler = {
   canHandle(handlerInput) {
