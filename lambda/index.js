@@ -42,24 +42,97 @@ const languageStrings = {
 };
 
 const detail_map = {
-  'MainUseSummary': [],
-  'SharePHI': [],    //  TODO
-  'PlanSponsor': [],
-  'PublicHealth': [],
-  'Oversight': [],
   'PrivacyRightsSummary': ['allDone', 'PrivacyRightsQuestion1Summary'],
-  'PrivacyRightsQuestion1Summary': ['allDone', 'PrivacyRightsQuestion1Detail1'],
-  'PrivacyRightsQuestion1Detail1': ['allDone', 'allDone']
+  'PrivacyRightsQuestion1Summary': ['PrivacyRightsQuestion2Summary', 'PrivacyRightsQuestion1Detail1'],
+  'PrivacyRightsQuestion1Detail1': ['PrivacyRightsQuestion2Summary', 'PrivacyRightsQuestion1Detail2'],
+  'PrivacyRightsQuestion1Detail2': ['PrivacyRightsQuestion2Summary', 'PrivacyRightsQuestion1Detail3'],
+  'PrivacyRightsQuestion1Detail3': ['PrivacyRightsQuestion2Summary', 'PrivacyRightsQuestion2Summary'],
+  'PrivacyRightsQuestion2Summary': ['PrivacyRightsQuestion3Summary', 'PrivacyRightsQuestion2Detail1'],
+  'PrivacyRightsQuestion2Detail1': ['PrivacyRightsQuestion3Summary', 'PrivacyRightsQuestion2Detail2'],
+  'PrivacyRightsQuestion2Detail2': ['PrivacyRightsQuestion3Summary', 'PrivacyRightsQuestion2Detail3'],
+  'PrivacyRightsQuestion2Detail3': ['PrivacyRightsQuestion3Summary', 'PrivacyRightsQuestion2Detail4'],
+  'PrivacyRightsQuestion2Detail4': ['PrivacyRightsQuestion3Summary', 'PrivacyRightsQuestion3Summary'],
+  'PrivacyRightsQuestion3Summary': ['PrivacyRightsQuestion4Summary', 'PrivacyRightsQuestion3Detail1'],
+  'PrivacyRightsQuestion3Detail1': ['PrivacyRightsQuestion4Summary', 'PrivacyRightsQuestion3Detail2'],
+  'PrivacyRightsQuestion3Detail2': ['PrivacyRightsQuestion4Summary', 'PrivacyRightsQuestion3Detail3'],
+  'PrivacyRightsQuestion3Detail3': ['PrivacyRightsQuestion4Summary', 'PrivacyRightsQuestion4Summary'],
+  'PrivacyRightsQuestion4Summary': ['PrivacyRightsQuestion5Summary', 'PrivacyRightsQuestion4Detail1'],
+  'PrivacyRightsQuestion4Detail1': ['PrivacyRightsQuestion5Summary', 'PrivacyRightsQuestion4Detail2'],
+  'PrivacyRightsQuestion4Detail2': ['PrivacyRightsQuestion5Summary', 'PrivacyRightsQuestion5Summary'],
+  'PrivacyRightsQuestion5Summary': ['allDone', 'PrivacyRightsQuestion5Detail1'],
+  'PrivacyRightsQuestion5Detail1': ['allDone', 'PrivacyRightsQuestion5Detail2'],
+  'PrivacyRightsQuestion5Detail2': ['allDone', 'PrivacyRightsQuestion5Detail3'],
+  'PrivacyRightsQuestion5Detail3': ['allDone', 'PrivacyRightsQuestion5Detail4'],
+  'PrivacyRightsQuestion5Detail4': ['allDone', 'allDone']
 };
 
 const question_map = {
+
+  'PrivacyRightsSummary':
+    'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights',
+
   'PrivacyRightsQuestion1Summary':
     'You have the right to access your PHI.',
 
   'PrivacyRightsQuestion1Detail1':
-    'To get the copy, you may obtain a form to request access by using the contact information.'
-    + ' You may also request access by sending us a letter to the address. The contact information'
-    + ' and address are listed on our website. It may cost to make a request.',
+    'You have the right to look at or get copies of your protected health information.  we will provide the information in a readable electronic format as mutually agreed upon. You have two ways to get the copy.',
+
+  'PrivacyRightsQuestion1Detail2':
+   'To get the copy, you may obtain a form to request access by using the contact information. You may also request access by sending us a letter to the address. The contact information and address are listed on our website. It may cost to make a request.',
+
+  'PrivacyRightsQuestion1Detail3':
+    'The first request within a 12-month period will be free. If you request access to your designated record set more than once in a 12-month period, we may charge you a reasonable, cost-based fee for responding to these additional requests.',
+  
+  'PrivacyRightsQuestion2Summary':  
+    'You have the right to an accounting.',
+
+  'PrivacyRightsQuestion2Detail1':
+    'You have a right to an accounting of certain disclosures of your protected health information that are for reasons other than treatment, payment or health care operations.',
+
+  'PrivacyRightsQuestion2Detail2': 
+    'An accounting will include the date(s) of the disclosure, to whom we made the disclosure, a brief description of the information disclosed, and the purpose for the disclosure. You have two ways to make a request.',
+
+  'PrivacyRightsQuestion2Detail3':
+    'You may request an accounting by contacting us at the Customer Service phone number on the back of your identification card, or submitting your request in writing to the Highmark Privacy Department. The address is listed on our website. It may cost to make a request.',
+
+  'PrivacyRightsQuestion2Detail4':
+    'The first request within a 12-month period will be free. If you request access to your designated record set more than once in a 12-month period, we may charge you a reasonable, cost-based fee for responding to these additional requests.',
+
+  'PrivacyRightsQuestion3Summary':
+    'You have the right to request a restriction.',
+
+  'PrivacyRightsQuestion3Detail1':
+    'You have the right to request a restriction on the protected health information we use or disclose about you for treatment, payment or health care operations. There are some requirements in the request.',
+
+  'PrivacyRightsQuestion3Detail2':
+    'In your request tell us: the information whose disclosure you want to limit; and how you want to limit our use and/ or disclosure of the information. We may not agree with the request.',
+
+  'PrivacyRightsQuestion3Detail3':
+    'We are not required to agree to these additional restrictions, but if we do, we will abide by our agreement unless the information is needed to provide emergency treatment to you.',
+
+  'PrivacyRightsQuestion4Summary':
+    'You have the right to request confidential communications.',
+
+  'PrivacyRightsQuestion4Detail1':
+    'If you believe that a disclosure of all or part of your protected health information may endanger you, you have the right to request that we communicate with you in confidence about your protected health information by alternative means or to an alternative location. There are some requirements in the request.',
+
+  'PrivacyRightsQuestion4Detail2':
+    'You must make your request in writing, and you must state that the information could endanger you if it is not communicated in confidence by the alternative means or to the alternative location you want.',
+
+  'PrivacyRightsQuestion5Summary':
+    'You have the right to request an amendment.',
+
+  'PrivacyRightsQuestion5Detail1':
+    'If you believe that your protected health information is incorrect or incomplete, you have the right to request that we amend your protected health information. There are some requirements in the request.',
+  
+  'PrivacyRightsQuestion5Detail2':
+    'Your request must be in writing, and it must explain why the information should be amended. And we may deny your request.',
+
+  'PrivacyRightsQuestion5Detail3':
+    'We may deny your request if we did not create the information you want amended or for certain other reasons. If we deny your request, we will provide you a written explanation.',
+
+  'PrivacyRightsQuestion5Detail4':
+    'If we accept your request to amend the information, we will make reasonable efforts to inform others, including people you name, of the amendment and to include the changes in any future disclosures of that information.',
 
   'allDone':
     'All Done! Have fun using our products.'
@@ -128,7 +201,7 @@ const OptionsHandler = {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     let repromptText = 'Answer Yes, No for the question or More Details to get more information.';
-    if (attributes.skillState.includes('rights')) {
+    if (attributes.skillState.includes('Rights')) {
       repromptText = 'Answer Yes to skip or more details to get more information';
     }
     let say = '';
