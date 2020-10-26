@@ -151,7 +151,7 @@ const detail_map = {
 
 const question_map = {
   PrivacyRightsSummary:
-    'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights. ',
+    'You have rights with respect to your protected health information, for each statement. ',
   MainUseSummaryDetail1:
     'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse. ',
   MainUseSummaryDetail2:
@@ -322,6 +322,7 @@ const MainUseDisclosure = {
     const repromptText = 'Answer yes, no or more details. ';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     attributes.skillState = 'MainUseSummary';
+    attributes.isConfiguring = true;
     handlerInput.attributesManager.setSessionAttributes(attributes);
     return handlerInput.responseBuilder
       .speak(say + repromptText)
@@ -333,8 +334,10 @@ const MainUseDisclosure = {
 const OptionsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
     return (
       !isAccountNotLinked(handlerInput) &&
+      attributes.isConfiguring &&
       (request.intent.name === 'AMAZON.YesIntent' ||
         request.intent.name === 'AMAZON.NoIntent' ||
         request.intent.name === 'MoreDetailsIntent')
@@ -368,6 +371,8 @@ const OptionsHandler = {
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
     if (attributes.skillState === 'allDone') {
+      attributes.isConfiguring = false;
+      handlerInput.attributesManager.setSessionAttributes(attributes);
       repromptText = "What's your next request? ";
     }
     return handlerInput.responseBuilder
