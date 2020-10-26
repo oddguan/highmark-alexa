@@ -362,6 +362,9 @@ const OptionsHandler = {
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
+    if (attributes.skillState === 'allDone') {
+      repromptText = "What's your next request? ";
+    }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
       .reprompt(repromptText)
