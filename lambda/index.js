@@ -101,10 +101,10 @@ const detail_map = {
 
 const question_map = {
   'PrivacyRightsSummary': 'You have rights with respect to your protected health information, for each statement, answer Yes to skip or more details to get more information of your rights',
-  'MainUseSummaryDetail1': 'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse that relates to: (i) your past, present, or future physical or mental health or condition; (ii) the provision of health care to you; or (iii) the past, present, or future payment for the provision of health care to you. ',
+  'MainUseSummaryDetail1': 'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse. ',
   'MainUseSummaryDetail2': 'We may use or disclose your protected health information to pay claims from doctors, hospitals, pharmacies and others for services delivered to you that are covered by your health plan, to determine your eligibility for benefits, to coordinate benefits, to examine medical necessity, to obtain premiums, or to issue explanations of benefits or payments to the person who subscribes to the health plan in which you participate. ',
   'MainUseSummaryDetail3': 'We may use or disclose your protected health information to rate our risk and determine the premium for your health plan, to conduct quality assessment and improvement activities, to credential health care providers, to engage in care coordination or case management, or to manage our business. ',
-  'SharePHI': 'Can we use and disclose protected health information to other covered entities, business associates, or other individuals (as permitted by the HIPAA Privacy Rule) who assist us in administering our programs and delivering services to our members?',
+  'SharePHI': 'Can we use and disclose protected health information to other covered entities, business associates, or other individuals who assist us in administering our programs and delivering services to our members?',
   'SharePHIDetail1': 'In connection with our payment and health care operations activities, we contract with business associates to perform various functions on our behalf or to provide certain types of services (such as member service support, utilization management, subrogation, or pharmacy benefit management). To perform these functions or to provide the services, business associates will receive, create, maintain, use, or disclose protected health information, but only after we require the business associates to agree in writing to contract terms designed to appropriately safeguard your information. If you need to know more about what other covered entities, please answer more details. ',
   'SharePHIDetail2': 'we may use or disclose your protected health information to assist health care providers in connection with their treatment or payment activities, or to assist other covered entities in connection with certain of their health care operations. For example, we may disclose your protected health information to a health care provider when needed by the provider to render treatment to you, and we may disclose protected health information to another covered entity to conduct health care operations in the areas of quality assurance and improvement activities, or accreditation, certification, licensing or credentialing. ',
   'PlanSponsor': 'Can we use and disclose protected health information to Plan Sponsors?',
@@ -198,7 +198,7 @@ const question_map = {
     'If we accept your request to amend the information, we will make reasonable efforts to inform others, including people you name, of the amendment and to include the changes in any future disclosures of that information. ',
 
   'allDone':
-    'All Done! Have fun using our products.'
+    'All Done! Have fun using our products. '
 };
 
 const GetDeductibleLinkedHandler = {
