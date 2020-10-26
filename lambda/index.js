@@ -177,7 +177,7 @@ const question_map = {
   OversightDetail1:
     'A health oversight agency for activities authorized by law includes  audits; investigations; inspections; licensure or disciplinary actions; or civil, administrative, or criminal proceedings or actions. Oversight agencies seeking this information include government agencies that oversee: (i) the health care system; (ii) government benefit programs; (iii)other government regulatory programs; and (iv) compliance with civil rights laws. ',
   LegalProceedings:
-    'Can we use and disclose protected health information for legal proceedings',
+    'Can we use and disclose protected health information for legal proceedings? ',
   LegalProceedingsDetail1:
     'We may disclose your protected health information: (1) in the course of any judicial or administrative proceeding; (2) in response to an order of a court or administrative tribunal (to the extent such disclosure is expressly authorized); and (3) in response to a subpoena, a discovery request, or other lawful process, once we have met all administrative requirements of the HIPAA Privacy Rule. For example, we may disclose your protected health information in response to a subpoena for such information. ',
   LawEnforcementOfficials:
@@ -208,7 +208,7 @@ const question_map = {
     'Can we use and disclose protected health information to Workers’ Compensation?',
   WorkersCompensationDetail1:
     'We may disclose your protected health information to comply with workers’ compensation laws and other similar programs that provide benefits for work-related injuries or illnesses. ',
-  Other:
+  Others:
     'Can we use and disclose protected health information to Others Involved in Your Health Care?',
   OthersDetail1:
     'Unless you object, we may disclose your protected health information to a friend or family member that you have identified as being involved in your health care. We also may disclose your information to an entity assisting in a disaster relief effort so that your family can be notified about your condition, status, and location. If you are not present or able to agree to these disclosures of your protected health information, then we may, using our professional judgment, determine whether the disclosure is in your best interest. ',
