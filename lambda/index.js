@@ -238,8 +238,8 @@ const MainUseDisclosure = {
   },
   handle(handlerInput) {
     const say = 'We will ask you servel privacy-related questions and setting options. ' +
-      'So, first, can we collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively?';   //  TODO
-    const repromptText = 'Answer Yes, No for the question or More Details to get more information.';
+      'So, first, can we collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively? ';   //  TODO
+    const repromptText = 'Answer yes, no or more details. ';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     attributes.skillState = 'MainUseSummary';
     handlerInput.attributesManager.setSessionAttributes(attributes);
@@ -263,9 +263,9 @@ const OptionsHandler = {
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    let repromptText = 'Answer Yes, No for the question or More Details to get more information.';
+    let repromptText = 'Answer yes, no or more details. ';
     if (attributes.skillState.includes('Rights')) {
-      repromptText = 'Answer Yes to skip or more details to get more information';
+      repromptText = 'Answer Yes to skip or more details. ';
     }
     let say = '';
     if (option === 'AMAZON.YesIntent') {
