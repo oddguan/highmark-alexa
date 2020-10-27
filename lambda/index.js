@@ -373,10 +373,10 @@ const DescribeSettings = {
     }
     let useConditions = '';
     let notUseConditions = '';
-    for (s in use) {
+    for (s of use) {
       useConditions += s;
     }
-    for (s in notUse) {
+    for (s of notUse) {
       notUseConditions += s;
     }
     let say = '';
