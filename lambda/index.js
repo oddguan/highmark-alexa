@@ -280,6 +280,9 @@ const question_map = {
   allDone: 'All Done! Have fun using our products. ',
 };
 
+const REPROMPT_PRIVACY_CONFIGURE_MESSAGE =
+  'Before you use our assistant, you need to agree to our privacy policies and configure your privacy preference. To do that, please say: privacy consent. ';
+
 const GetDeductibleLinkedHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
@@ -495,7 +498,7 @@ const SayHelloHandler = {
     const { isConfiguring } = sessionAttributes;
     let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
     if (typeof isConfiguring === 'undefined') {
-      repromptOutput = 'Before you use our assistant, you need to agree to our privacy policies and configure your privacy preference. To do that, please say: privacy consent. '
+      repromptOutput = REPROMPT_PRIVACY_CONFIGURE_MESSAGE;
     }
     const speakOutput =
       requestAttributes.t(
@@ -523,6 +526,11 @@ const RequestInfoHandler = {
     const request = handlerInput.requestEnvelope.request;
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    if (typeof sessionAttributes.isConfiguring === 'undefined') {
+      return handlerInput.responseBuilder
+        .speak(REPROMPT_PRIVACY_CONFIGURE_MESSAGE)
+        .gerResponse();
+    }
     const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
     let speakOutput = '';
 
