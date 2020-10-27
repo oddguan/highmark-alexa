@@ -348,7 +348,8 @@ const DescribeSettings = {
     if (typeof attributes.isConfiguring === 'undefined') {
       return handlerInput.responseBuilder
         .speak(REPROMPT_PRIVACY_CONFIGURE_MESSAGE)
-        .gerResponse();
+        .reprompt()
+        .getResponse();
     }
     const useSpeak = 'According to your privacy settings, we will use and disclose your PHI for ';
     const notUseSpeak = 'According to your privacy settings, we will not use and disclose your PHI for ';
