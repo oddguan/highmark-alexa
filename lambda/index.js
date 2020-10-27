@@ -334,8 +334,10 @@ const MainUseDisclosure = {
 const DescribeSettings = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
     return (
       !isAccountNotLinked(handlerInput) &&
+      attributes.isConfiguring &&
       request.intent.name === 'PrivacySettingsIntent' //  TODO
     );
   },
@@ -346,7 +348,7 @@ const DescribeSettings = {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     const use = [];
     const notUse = [];
-    if (attributes.MainUseDisclosure) {
+    if (attributes.MainUseSummary) {
       use.push('payment and healthcare operations ');
     } else {
       notUse.push('payment and healthcare operations ');
