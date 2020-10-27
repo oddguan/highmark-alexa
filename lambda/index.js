@@ -492,7 +492,11 @@ const SayHelloHandler = {
   handle(handlerInput) {
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
+    const { isConfiguring } = sessionAttributes;
+    let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
+    if (typeof isConfiguring === 'undefined') {
+      repromptOutput = 'Before you use our assistant, you need to agree to our privacy policies and configure your privacy preference. To do that, please say: privacy consent. '
+    }
     const speakOutput =
       requestAttributes.t(
         'GREETING_MESSAGE',
