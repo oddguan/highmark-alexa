@@ -337,7 +337,6 @@ const DescribeSettings = {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     return (
       !isAccountNotLinked(handlerInput) &&
-      attributes.isConfiguring &&
       request.intent.name === 'PrivacySettingsIntent' //  TODO
     );
   },
