@@ -344,10 +344,15 @@ const DescribeSettings = {
     );
   },
   handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    if (typeof attributes.isConfiguring === 'undefined') {
+      return handlerInput.responseBuilder
+        .speak(REPROMPT_PRIVACY_CONFIGURE_MESSAGE)
+        .gerResponse();
+    }
     const useSpeak = 'According to your privacy settings, we will use and disclose your PHI for ';
     const notUseSpeak = 'According to your privacy settings, we will not use and disclose your PHI for ';
     const repromptText = "What's your request?";
-    const attributes = handlerInput.attributesManager.getSessionAttributes();
     const use = [];
     const notUse = [];
     if (attributes.MainUseSummary) {
@@ -526,11 +531,6 @@ const RequestInfoHandler = {
     const request = handlerInput.requestEnvelope.request;
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    if (typeof sessionAttributes.isConfiguring === 'undefined') {
-      return handlerInput.responseBuilder
-        .speak(REPROMPT_PRIVACY_CONFIGURE_MESSAGE)
-        .gerResponse();
-    }
     const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
     let speakOutput = '';
 
