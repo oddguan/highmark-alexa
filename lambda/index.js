@@ -349,44 +349,38 @@ const DescribeSettings = {
     const use = [];
     const notUse = [];
     if (attributes.MainUseSummary) {
-      use.push('payment and healthcare operations ');
+      use.push('payment and healthcare operations');
     } else {
-      notUse.push('payment and healthcare operations ');
+      notUse.push('payment and healthcare operations');
     }
     if (attributes.SharePHI) {
-      use.push('sharing with third-parties ');
+      use.push('sharing with third-parties');
     } else {
-      notUse.push('sharing with third-parties ');
+      notUse.push('sharing with third-parties');
     }
     if (attributes.PlanSponsor) {
-      use.push('plan sponsors ');
+      use.push('plan sponsors');
     } else {
-      notUse.push('plan sponsors ');
+      notUse.push('plan sponsors');
     }
     if (attributes.PublicHealth) {
-      use.push('public health activities ');
+      use.push('public health activities');
     } else {
-      notUse.push('public health activities ');
+      notUse.push('public health activities');
     }
     if (attributes.Oversight) {
-      use.push('oversight agencies ');
+      use.push('oversight agencies');
     } else {
-      notUse.push('oversight agencies ');
+      notUse.push('oversight agencies');
     }
-    let useConditions = '';
-    let notUseConditions = '';
-    for (s of use) {
-      useConditions += s;
-    }
-    for (s of notUse) {
-      notUseConditions += s;
-    }
+    const useConditions = use.join(', ');
+    let notUseConditions = notUse.join(', ');
     let say = '';
     if (useConditions !== '') {
-      say += useSpeak + useConditions; 
+      say += useSpeak + useConditions + '. '; 
     }
     if (notUseConditions !== '') {
-      say += notUseSpeak + notUseConditions;
+      say += notUseSpeak + notUseConditions + '. ';
     }
     return handlerInput.responseBuilder
       .speak(say)
