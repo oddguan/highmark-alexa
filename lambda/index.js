@@ -52,31 +52,31 @@ const detail_map = {
   PlanSponsorDetail1: ['PublicHealth', 'PublicHealth'],
   PublicHealth: ['Oversight', 'PublicHealthDetail1'],
   PublicHealthDetail1: ['Oversight', 'Oversight'],
-  Oversight: ['LegalProceedings', 'OversightDetail1'],
-  OversightDetail1: ['LegalProceedings', 'LegalProceedings'],
-  LegalProceedings: ['LawEnforcementOfficials', 'LegalProceedingsDetail1'],
-  LegalProceedingsDetail1: [
-    'LawEnforcementOfficials',
-    'LawEnforcementOfficials',
-  ],
-  LawEnforcementOfficials: ['Agencies', 'LawEnforcementOfficialsDetail1'],
-  LawEnforcementOfficialsDetail1: ['Agencies', 'Agencies'],
-  Agencies: ['Research', 'AgenciesDetail1'],
-  AgenciesDetail1: ['Research', 'Research'],
-  Research: ['PreventThreat', 'ResearchDetail1'],
-  ResearchDetail1: ['PreventThreat', 'PreventThreat'],
-  PreventThreat: ['NationSecurity', 'PreventThreatDetail1'],
-  PreventThreatDetail1: ['NationSecurity', 'NationSecurity'],
-  NationSecurity: ['Inmates', 'NationSecurityDetail1'],
-  NationSecurityDetail1: ['Inmates', 'Inmates'],
-  Inmates: ['WorkersCompensation', 'InmatesDetail1'],
-  InmatesDetail1: ['WorkersCompensation', 'WorkersCompensation'],
-  WorkersCompensation: ['Others', 'WorkersCompensationDetail1'],
-  WorkersCompensationDetail1: ['Others', 'Others'],
-  Others: ['Underwriting', 'OthersDetail1'],
-  OthersDetail1: ['Underwriting', 'Underwriting'],
-  Underwriting: ['PrivacyRightsSummary', 'UnderwritingDetail1'],
-  UnderwritingDetail1: ['PrivacyRightsSummary', 'PrivacyRightsSummary'],
+  Oversight: ['PrivacyRightsSummary', 'OversightDetail1'],
+  OversightDetail1: ['PrivacyRightsSummary', 'PrivacyRightsSummary'],
+  // LegalProceedings: ['LawEnforcementOfficials', 'LegalProceedingsDetail1'],
+  // LegalProceedingsDetail1: [
+  //   'LawEnforcementOfficials',
+  //   'LawEnforcementOfficials',
+  // ],
+  // LawEnforcementOfficials: ['Agencies', 'LawEnforcementOfficialsDetail1'],
+  // LawEnforcementOfficialsDetail1: ['Agencies', 'Agencies'],
+  // Agencies: ['Research', 'AgenciesDetail1'],
+  // AgenciesDetail1: ['Research', 'Research'],
+  // Research: ['PreventThreat', 'ResearchDetail1'],
+  // ResearchDetail1: ['PreventThreat', 'PreventThreat'],
+  // PreventThreat: ['NationSecurity', 'PreventThreatDetail1'],
+  // PreventThreatDetail1: ['NationSecurity', 'NationSecurity'],
+  // NationSecurity: ['Inmates', 'NationSecurityDetail1'],
+  // NationSecurityDetail1: ['Inmates', 'Inmates'],
+  // Inmates: ['WorkersCompensation', 'InmatesDetail1'],
+  // InmatesDetail1: ['WorkersCompensation', 'WorkersCompensation'],
+  // WorkersCompensation: ['Others', 'WorkersCompensationDetail1'],
+  // WorkersCompensationDetail1: ['Others', 'Others'],
+  // Others: ['Underwriting', 'OthersDetail1'],
+  // OthersDetail1: ['Underwriting', 'Underwriting'],
+  // Underwriting: ['PrivacyRightsSummary', 'UnderwritingDetail1'],
+  // UnderwritingDetail1: ['PrivacyRightsSummary', 'PrivacyRightsSummary'],
   PrivacyRightsSummary: ['allDone', 'PrivacyRightsQuestion1Summary'],
   PrivacyRightsQuestion1Summary: [
     'PrivacyRightsQuestion2Summary',
@@ -331,6 +331,68 @@ const MainUseDisclosure = {
   },
 };
 
+const DescribeSettings = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      !isAccountNotLinked(handlerInput) &&
+      request.intent.name === 'PrivacySettingsIntent' //  TODO
+    );
+  },
+  handle(handlerInput) {
+    const useSpeak = 'According to your privacy settings, we will use and disclose your PHI for ';
+    const notUseSpeak = 'According to your privacy settings, we will not use and disclose your PHI for ';
+    const repromptText = "What's your request?";
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    const use = [];
+    const notUse = [];
+    if (attributes.MainUseDisclosure) {
+      use.push('payment and healthcare operations ');
+    } else {
+      notUse.push('payment and healthcare operations ');
+    }
+    if (attributes.SharePHI) {
+      use.push('sharing with third-parties ');
+    } else {
+      notUse.push('sharing with third-parties ');
+    }
+    if (attributes.PlanSponsor) {
+      use.push('plan sponsors ');
+    } else {
+      notUse.push('plan sponsors ');
+    }
+    if (attributes.PublicHealth) {
+      use.push('public health activities ');
+    } else {
+      notUse.push('public health activities ');
+    }
+    if (attributes.Oversight) {
+      use.push('oversight agencies ');
+    } else {
+      notUse.push('oversight agencies ');
+    }
+    let useConditions = '';
+    let notUseConditions = '';
+    for (s in use) {
+      useConditions += s;
+    }
+    for (s in notUse) {
+      notUseConditions += s;
+    }
+    let say = '';
+    if (useConditions !== '') {
+      say += useSpeak + useConditions; 
+    }
+    if (notUseConditions !== '') {
+      say += notUseSpeak + notUseConditions;
+    }
+    return handlerInput.responseBuilder
+      .speak(say)
+      .reprompt(repromptText)
+      .getResponse();
+  },
+};
+
 const OptionsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
@@ -346,10 +408,27 @@ const OptionsHandler = {
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
+    let currentState = attributes.skillState;
     let repromptText = 'Answer yes, no or more details. ';
     let say = '';
+    let flag = false;
     if (option === 'AMAZON.YesIntent' || option === 'AMAZON.NoIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
+      if (option === 'AMAZON.YesIntent' ) {
+          flag = true;
+      }
+      //  Send to cognito server
+      if (currentState.includes('MainUseSummary')) {
+        attributes.MainUseSummary = flag;
+      } else if (currentState.includes('SharePHI')) {
+        attributes.SharePHI = flag;
+      } else if (currentState.includes('PlanSponsor')) {
+        attributes.PlanSponsor = flag;
+      } else if (currentState.includes('PublicHealth')) {
+        attributes.PublicHealth = flag;
+      } else if (currentState.includes('Oversight')) {
+        attributes.Oversight = flag;
+      }
     } else {
       attributes.skillState = detail_map[attributes.skillState][1];
     }
@@ -739,7 +818,8 @@ exports.handler = skillBuilder
     ExitHandler,
     SessionEndedRequestHandler,
     MainUseDisclosure,
-    OptionsHandler
+    OptionsHandler,
+    DescribeSettings
   )
   .addRequestInterceptors(
     RequestLog,
