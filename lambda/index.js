@@ -381,10 +381,11 @@ const GetDeductibleLinkedHandler = {
     let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
     let say = '';
     if (sessionAttributes.deductibleAllowed) {
-      say = "You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ";
+      say =
+        'You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ';
     } else {
-      say = 'Can we use your deductible data to offer the service? '
-      repromptOutput = 'Answer yes or no. '
+      say = 'Can we use your deductible data to offer the service? ';
+      repromptOutput = 'Answer yes or no. ';
       sessionAttributes.isAskingDeductible = true;
       handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     }
@@ -410,10 +411,12 @@ const PrimaryDoctorHandler = {
     let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
     let say = '';
     if (sessionAttributes.primaryDoctorAllowed) {
-      say = 'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
+      say =
+        'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
     } else {
-      say = 'Can we access your primary doctor information to offer the service? '
-      repromptOutput = 'Answer yes or no. '
+      say =
+        'Can we access your primary doctor information to offer the service? ';
+      repromptOutput = 'Answer yes or no. ';
       sessionAttributes.isAskingDoctor = true;
       handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     }
@@ -458,7 +461,8 @@ const DescribeSettings = {
     );
   },
   handle(handlerInput) {
-    const say = 'According to your privacy settings, we will use and disclose your PHI for payment and health care operations, to other covered entities, plan sponsors, public health activities and health oversight agencies. ';
+    const say =
+      'According to your privacy settings, we will use and disclose your PHI for payment and health care operations, to other covered entities, plan sponsors, public health activities and health oversight agencies. ';
     const repromptText = "What's your next request?";
     return handlerInput.responseBuilder
       .speak(say)
@@ -471,8 +475,7 @@ const revokePersonalSettingsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
     return (
-      !isAccountLinked(handlerInput) &&
-      request.intent.name === 'RevokeIntent'
+      !isAccountLinked(handlerInput) && request.intent.name === 'RevokeIntent'
     );
   },
   handle(handlerInput) {
@@ -487,7 +490,7 @@ const revokePersonalSettingsHandler = {
       .speak(say)
       .reprompt(repromptText)
       .getResponse();
-  }
+  },
 };
 
 const OptionsHandler = {
@@ -496,10 +499,12 @@ const OptionsHandler = {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     return (
       !isAccountNotLinked(handlerInput) &&
-      (attributes.isConfiguring || attributes.isAskingDeductible || attributes.isAskingDoctor) && 
+      (attributes.isConfiguring ||
+        attributes.isAskingDeductible ||
+        attributes.isAskingDoctor) &&
       (request.intent.name === 'AMAZON.YesIntent' ||
         request.intent.name === 'AMAZON.NoIntent' ||
-        request.intent.name === 'MoreDetailsIntent') 
+        request.intent.name === 'MoreDetailsIntent')
     );
   },
   handle(handlerInput) {
@@ -510,40 +515,45 @@ const OptionsHandler = {
     if (attributes.isAskingDeductible) {
       repromptText = "What's your next request? ";
       if (option === 'AMAZON.YesIntent') {
-        say = 'You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ';
+        say =
+          'You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ';
         attributes.isAskingDeductible = false;
         attributes.deductibleAllowed = true;
       } else if (option === 'AMAZON.NoIntent') {
-        say = 'We cannot answer your question if you do not give us the permission. ';
+        say =
+          'We cannot answer your question if you do not give us the permission. ';
         attributes.isAskingDeductible = false;
       }
       handlerInput.attributesManager.setSessionAttributes(attributes);
       return handlerInput.responseBuilder
-          .speak(say + repromptText)
-          .reprompt(repromptText)
-          .getResponse();
+        .speak(say + repromptText)
+        .reprompt(repromptText)
+        .getResponse();
     }
     if (attributes.isAskingDoctor) {
       repromptText = "What's your next request? ";
       if (option === 'AMAZON.YesIntent') {
-        say = 'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
+        say =
+          'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
         attributes.isAskingDoctor = false;
         attributes.primaryDoctorAllowed = true;
       } else if (option === 'AMAZON.NoIntent') {
-        say = 'We cannot answer your question if you do not give us the permission. ';
+        say =
+          'We cannot answer your question if you do not give us the permission. ';
         attributes.isAskingDoctor = false;
       }
       handlerInput.attributesManager.setSessionAttributes(attributes);
       return handlerInput.responseBuilder
-          .speak(say + repromptText)
-          .reprompt(repromptText)
-          .getResponse();
+        .speak(say + repromptText)
+        .reprompt(repromptText)
+        .getResponse();
     }
     //let currentState = attributes.skillState;
     if (option === 'AMAZON.YesIntent' || option === 'AMAZON.NoIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
       if (option === 'AMAZON.NoIntent') {
-        say = "I'm sorry, but you need to answer yes for the policy to use our product. "
+        say =
+          "I'm sorry, but you need to answer yes for the policy to use our product. ";
         repromptText = "What's your next request? ";
         attributes.isConfiguring = false;
         handlerInput.attributesManager.setSessionAttributes(attributes);
@@ -559,7 +569,7 @@ const OptionsHandler = {
       detail_map[attributes.skillState] &&
       detail_map[attributes.skillState][0] !== 'allDone' &&
       detail_map[attributes.skillState][0] ===
-      detail_map[attributes.skillState][1]
+        detail_map[attributes.skillState][1]
     ) {
       repromptText = 'Answer yes to listen to the next question. ';
     }
@@ -596,16 +606,16 @@ const AgreeHandler = {
     if (option === 'AgreeIntent') {
       attributes.agreedPolicy = true;
       handlerInput.attributesManager.setSessionAttributes(attributes);
-      say = 'You have agreed our digital privacy policy. Have fun using the product. '
+      say =
+        'You have agreed our digital privacy policy. Have fun using the product. ';
       return handlerInput.responseBuilder
         .speak(say + repromptText)
         .reprompt(repromptText)
         .getResponse();
     } else {
-      say = 'You did not agree to our digital privacy policy. For now, you can not use the product. '
-      return handlerInput.responseBuilder
-        .speak(say)
-        .getResponse();
+      say =
+        'You did not agree to our digital privacy policy. For now, you can not use the product. ';
+      return handlerInput.responseBuilder.speak(say).getResponse();
     }
   },
 };
@@ -613,13 +623,12 @@ const AgreeHandler = {
 const FallBackHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
-    return (
-      request.intent.name === 'AMAZON.FallbackIntent'
-    );
+    return request.intent.name === 'AMAZON.FallbackIntent';
   },
   handle(handlerInput) {
     let repromptText = "What's your next request? ";
-    let say = "Sorry, I'm not sure how to answer that, meanwhile you can call 1-800-701-2324 for more information. ";
+    let say =
+      "Sorry, I'm not sure how to answer that, meanwhile you can call 1-800-701-2324 for more information. ";
     return handlerInput.responseBuilder
       .speak(say + repromptText)
       .reprompt(repromptText)
@@ -630,47 +639,47 @@ const FallBackHandler = {
 const CopayHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
-    return (
-      request.intent.name === 'WhatIsCopayIntent'
-    );
+    return request.intent.name === 'WhatIsCopayIntent';
   },
   handle(handlerInput) {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     let say = '';
     const repromptText = "What's your next request? ";
     if (attributes.agreedPolicy) {
-      say = 'A copay is the set amount you pay for a covered healthcare service. You may be also responsible for additional charges, such as those for non-preventive services. ';
+      say =
+        'A copay is the set amount you pay for a covered healthcare service. You may be also responsible for additional charges, such as those for non-preventive services. ';
     } else {
-      say = 'You have not agreed our digital privacy policy, so we can not proceed your request. ';
+      say =
+        'You have not agreed our digital privacy policy, so we can not proceed your request. ';
     }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
       .reprompt(repromptText)
       .getResponse();
-  }
+  },
 };
 
 const MedicalcareHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
-    return (
-      request.intent.name === 'WhatIsMedicareIntent'
-    );
+    return request.intent.name === 'WhatIsMedicareIntent';
   },
   handle(handlerInput) {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     let say = '';
     const repromptText = "What's your next request? ";
     if (attributes.agreedPolicy) {
-      say = "Medicare is a national health insurance program providing coverage for Americans aged 65 and older. It also covers younger people with a disability, as well as people with end stage renal disease and amyotrophic lateral sclerosis (ALS) or Lou Gehrig's disease. ";
+      say =
+        "Medicare is a national health insurance program providing coverage for Americans aged 65 and older. It also covers younger people with a disability, as well as people with end stage renal disease and amyotrophic lateral sclerosis (ALS) or Lou Gehrig's disease. ";
     } else {
-      say = 'You have not agreed our digital privacy policy, so we can not proceed your request. ';
+      say =
+        'You have not agreed our digital privacy policy, so we can not proceed your request. ';
     }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
       .reprompt(repromptText)
       .getResponse();
-  }
+  },
 };
 
 const GetDeductibleNotLinkedHandler = {
@@ -712,7 +721,8 @@ const SayHelloHandler = {
     sessionAttributes.agreedPolicy = false;
     sessionAttributes.deductibleAllowed = false;
     sessionAttributes.primaryDoctorAllowed = false;
-    let repromptOutput = 'Please read the policy I send to your mobile app. After reading it, answer I agree or I disagree to continue. ';
+    let repromptOutput =
+      'Please read the policy I send to your mobile app. After reading it, answer I agree or I disagree to continue. ';
     // const { isConfiguring } = sessionAttributes;
     // if (typeof isConfiguring === 'undefined') {
     //   repromptOutput = REPROMPT_PRIVACY_CONFIGURE_MESSAGE;
@@ -828,8 +838,10 @@ const ExitHandler = {
   },
   handle(handlerInput) {
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const name = sessionAttributes.firstName ? " " + sessionAttributes.firstName : '';
-    const speakOutput = `Goodbye${name}! It was nice talking to you.`
+    const name = sessionAttributes.firstName
+      ? ' ' + sessionAttributes.firstName
+      : '';
+    const speakOutput = `Goodbye${name}! It was nice talking to you.`;
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .withShouldEndSession(true)
@@ -1044,7 +1056,8 @@ exports.handler = skillBuilder
     FallBackHandler,
     CopayHandler,
     MedicalcareHandler,
-    revokePersonalSettingsHandler
+    revokePersonalSettingsHandler,
+    PrimaryDoctorHandler
   )
   .addRequestInterceptors(
     RequestLog,
