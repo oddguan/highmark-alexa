@@ -745,12 +745,9 @@ const ExitHandler = {
     );
   },
   handle(handlerInput) {
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const speakOutput = requestAttributes.t(
-      'GOODBYE_MESSAGE',
-      sessionAttributes.firstName
-    );
+    const name = sessionAttributes.firstName ? " " + sessionAttributes.firstName : '';
+    const speakOutput = `Goodbye${name}! It was nice talking to you.`
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .withShouldEndSession(true)
