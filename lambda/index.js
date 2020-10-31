@@ -234,7 +234,7 @@ const detail_map = {
 
 const question_map = {
   PrivacyRightsSummary:
-    'You have rights with respect to your protected health information. If you want more details, please say more details, or say yes to skip. ',
+    'You have rights with respect to your protected health information. If you want more details, please say more details, or say okay to skip. ',
   MainUseSummaryDetail1:
     'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse. ',
   MainUseSummaryDetail2:
@@ -440,7 +440,7 @@ const MainUseDisclosure = {
     const say =
       'We will show you servel privacy-related statements. ' +
       'First, we may collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively. '; //  TODO
-    const repromptText = 'Answer yes or more details. ';
+    const repromptText = 'Answer okay or more details. ';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     attributes.skillState = 'MainUseSummary';
     attributes.isConfiguring = true;
@@ -512,7 +512,7 @@ const OptionsHandler = {
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    let repromptText = 'Answer yes, or more details. ';
+    let repromptText = 'Answer okay, or more details. ';
     let say = '';
     if (attributes.isAskingDeductible) {
       repromptText = "What's your next request? ";
@@ -573,7 +573,7 @@ const OptionsHandler = {
       detail_map[attributes.skillState][0] ===
         detail_map[attributes.skillState][1]
     ) {
-      repromptText = 'Answer yes to listen to the next question. ';
+      repromptText = 'Answer okay to listen to the next statement. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
