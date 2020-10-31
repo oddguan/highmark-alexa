@@ -452,25 +452,25 @@ const MainUseDisclosure = {
   },
 };
 
-const DescribeSettings = {
-  canHandle(handlerInput) {
-    const { request } = handlerInput.requestEnvelope;
-    const attributes = handlerInput.attributesManager.getSessionAttributes();
-    return (
-      !isAccountNotLinked(handlerInput) &&
-      request.intent.name === 'PrivacySettingsIntent' //  TODO
-    );
-  },
-  handle(handlerInput) {
-    const say =
-      'According to your privacy settings, we will use and disclose your PHI for payment and health care operations, to other covered entities, plan sponsors, public health activities and health oversight agencies. ';
-    const repromptText = "What's your next request?";
-    return handlerInput.responseBuilder
-      .speak(say)
-      .reprompt(repromptText)
-      .getResponse();
-  },
-};
+// const DescribeSettings = {
+//   canHandle(handlerInput) {
+//     const { request } = handlerInput.requestEnvelope;
+//     const attributes = handlerInput.attributesManager.getSessionAttributes();
+//     return (
+//       !isAccountNotLinked(handlerInput) &&
+//       request.intent.name === 'PrivacySettingsIntent' //  TODO
+//     );
+//   },
+//   handle(handlerInput) {
+//     const say =
+//       'According to your privacy settings, we will use and disclose your PHI for payment and health care operations, to other covered entities, plan sponsors, public health activities and health oversight agencies. ';
+//     const repromptText = "What's your next request?";
+//     return handlerInput.responseBuilder
+//       .speak(say)
+//       .reprompt(repromptText)
+//       .getResponse();
+//   },
+// };
 
 const revokePersonalSettingsHandler = {
   canHandle(handlerInput) {
@@ -1055,7 +1055,7 @@ exports.handler = skillBuilder
     SessionEndedRequestHandler,
     MainUseDisclosure,
     OptionsHandler,
-    DescribeSettings,
+    // DescribeSettings,
     AgreeHandler,
     FallBackHandler,
     CopayHandler,
