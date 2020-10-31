@@ -630,8 +630,8 @@ const SayHelloHandler = {
     sessionAttributes.agreedPolicy = false;
     sessionAttributes.deductibleAllowed = false;
     sessionAttributes.primaryDoctorAllowed = false;
-    const { isConfiguring } = sessionAttributes;
     let repromptOutput = 'Please read the policy I send to your mobile app. After reading it, answer I agree or I disagree to continue. ';
+    // const { isConfiguring } = sessionAttributes;
     // if (typeof isConfiguring === 'undefined') {
     //   repromptOutput = REPROMPT_PRIVACY_CONFIGURE_MESSAGE;
     // }
@@ -643,6 +643,10 @@ const SayHelloHandler = {
     return handlerInput.responseBuilder
       .speak(speakOutput)
       .reprompt(repromptOutput)
+      .withSimpleCard(
+        'Highmark Health Digital Privacy Policy',
+        'Please read the privacy policy in the following link and either answer "I Agree" or "I Disagree": https://cdn.highmark.com/content/global/policies/Digital_Channel_Consent_05.04.2020.pdf'
+      )
       .getResponse();
   },
 };
