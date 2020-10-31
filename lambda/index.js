@@ -234,7 +234,7 @@ const detail_map = {
 
 const question_map = {
   PrivacyRightsSummary:
-    'You have rights with respect to your protected health information, for each statement. ',
+    'You have rights with respect to your protected health information. If you want more details, please say more details, or say yes to skip. ',
   MainUseSummaryDetail1:
     'PHI is your individually identifiable health information, including demographic information, collected from you or created or received by a health care provider, a health plan, your employer, or a healthcare clearinghouse. ',
   MainUseSummaryDetail2:
@@ -311,7 +311,8 @@ const question_map = {
   PrivacyRightsQuestion1Detail3:
     'The first request within a 12-month period will be free. If you request access to your designated record set more than once in a 12-month period, we may charge you a reasonable, cost-based fee for responding to these additional requests. ',
 
-  PrivacyRightsQuestion2Summary: 'You have the right to an accounting. ',
+  PrivacyRightsQuestion2Summary:
+    'You have the right to an accounting of certain disclosures to your protected health information. ',
 
   PrivacyRightsQuestion2Detail1:
     'You have a right to an accounting of certain disclosures of your protected health information that are for reasons other than treatment, payment or health care operations. ',
@@ -580,6 +581,8 @@ const OptionsHandler = {
       attributes.isConfiguring = false;
       handlerInput.attributesManager.setSessionAttributes(attributes);
       repromptText = "What's your next request? ";
+    } else if (attributes.skillState === 'PrivacyRightsSummary') {
+      repromptText = '';
     }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
