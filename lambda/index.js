@@ -22,7 +22,7 @@ const languageStrings = {
         'Before we can continue, you will need to link your account to the %s skill using the card that I have sent to the Alexa app. ',
       HELP_MESSAGE:
         "You can say: 'alexa, hello', 'alexa, tell me my info' or 'alexa, who am I'.",
-      FOLLOW_UP_MESSAGE: "What's your request?",
+      FOLLOW_UP_MESSAGE: "What's your next request?",
       ERR_MESSAGE: "Sorry, I can't understand that request. Please try again.",
       GREETING_MESSAGE: 'Hello %s. Welcome to use the Highmark Assistant. ',
       GOODBYE_MESSAGE: 'Good bye %s. It was nice talking to you. ',
