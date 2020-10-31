@@ -602,7 +602,7 @@ const AgreeHandler = {
         .reprompt(repromptText)
         .getResponse();
     } else {
-      say = 'You do not agree our digital privacy policy. For now, you can not use the product. '
+      say = 'You did not agree to our digital privacy policy. For now, you can not use the product. '
       return handlerInput.responseBuilder
         .speak(say)
         .getResponse();
