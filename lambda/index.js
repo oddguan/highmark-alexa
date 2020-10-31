@@ -645,7 +645,8 @@ const SayHelloHandler = {
       .reprompt(repromptOutput)
       .withSimpleCard(
         'Highmark Health Digital Privacy Policy',
-        'Please read the privacy policy in the following link and either answer "I Agree" or "I Disagree": https://cdn.highmark.com/content/global/policies/Digital_Channel_Consent_05.04.2020.pdf'
+        `Please read the privacy policy in the following link and either answer "I Agree" or "I Disagree":
+         https://cdn.highmark.com/content/global/policies/Digital_Channel_Consent_05.04.2020.pdf`
       )
       .getResponse();
   },
