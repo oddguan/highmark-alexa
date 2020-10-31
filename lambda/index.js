@@ -496,10 +496,10 @@ const OptionsHandler = {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     return (
       !isAccountNotLinked(handlerInput) &&
-      attributes.isConfiguring &&
+      (attributes.isConfiguring || attributes.isAskingDeductible || attributes.isAskingDoctor) && 
       (request.intent.name === 'AMAZON.YesIntent' ||
         request.intent.name === 'AMAZON.NoIntent' ||
-        request.intent.name === 'MoreDetailsIntent')
+        request.intent.name === 'MoreDetailsIntent') 
     );
   },
   handle(handlerInput) {
