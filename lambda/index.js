@@ -686,13 +686,15 @@ const MedicalcareHandler = {
   },
 };
 
-const GetDeductibleNotLinkedHandler = {
+const AccountNotLinkedHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
     return (
       isAccountNotLinked(handlerInput) &&
       request.type === 'IntentRequest' &&
-      request.intent.name === 'GetDeductibleIntent'
+      (request.intent.name === 'GetDeductibleIntent' ||
+        request.intent.name === 'PrivacyConsentIntent' ||
+        request.intent.name === 'PrimaryDoctorIntent')
     );
   },
   handle(handlerInput) {
@@ -1046,7 +1048,7 @@ const skillBuilder = Alexa.SkillBuilders.standard();
 exports.handler = skillBuilder
   .addRequestHandlers(
     // CheckAccountLinkedHandler,
-    GetDeductibleNotLinkedHandler,
+    AccountNotLinkedHandler,
     GetDeductibleLinkedHandler,
     SayHelloHandler,
     RequestInfoHandler,
