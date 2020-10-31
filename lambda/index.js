@@ -475,19 +475,20 @@ const revokePersonalSettingsHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
     return (
-      !isAccountLinked(handlerInput) && request.intent.name === 'RevokeIntent'
+      !isAccountNotLinked(handlerInput) &&
+      request.intent.name === 'RevokeIntent'
     );
   },
   handle(handlerInput) {
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    attributes.agreedPolicy = false;
+    // attributes.agreedPolicy = false;
     attributes.deductibleAllowed = false;
     attributes.primaryDoctorAllowed = false;
     handlerInput.attributesManager.setSessionAttributes(attributes);
     const say = 'We have revoked all your personal settings. ';
     const repromptText = "What's your next request?";
     return handlerInput.responseBuilder
-      .speak(say)
+      .speak(say + repromptText)
       .reprompt(repromptText)
       .getResponse();
   },
