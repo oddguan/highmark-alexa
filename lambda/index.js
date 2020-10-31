@@ -602,7 +602,6 @@ const AgreeHandler = {
         .reprompt(repromptText)
         .getResponse();
     } else {
-      attributes.agreedPolicy = detail_map[attributes.skillState][1];
       say = 'You do not agree our digital privacy policy. For now, you can not use the product. '
       return handlerInput.responseBuilder
         .speak(say)
