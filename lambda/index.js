@@ -159,21 +159,21 @@ const question_map = {
   MainUseSummaryDetail3:
     'We may use or disclose your protected health information to rate our risk and determine the premium for your health plan, to conduct quality assessment and improvement activities, to credential health care providers, to engage in care coordination or case management, or to manage our business. ',
   SharePHI:
-    'Can we use and disclose protected health information to other covered entities, business associates, or other individuals who assist us in administering our programs and delivering services to our members?',
+    'We may use and disclose protected health information to other covered entities, business associates, or other individuals who assist us in administering our programs and delivering services to our members. ',
   SharePHIDetail1:
     'In connection with our payment and health care operations activities, we contract with business associates to perform various functions on our behalf or to provide certain types of services (such as member service support, utilization management, subrogation, or pharmacy benefit management). To perform these functions or to provide the services, business associates will receive, create, maintain, use, or disclose protected health information, but only after we require the business associates to agree in writing to contract terms designed to appropriately safeguard your information. If you need to know more about what other covered entities, please answer more details. ',
   SharePHIDetail2:
     'we may use or disclose your protected health information to assist health care providers in connection with their treatment or payment activities, or to assist other covered entities in connection with certain of their health care operations. For example, we may disclose your protected health information to a health care provider when needed by the provider to render treatment to you, and we may disclose protected health information to another covered entity to conduct health care operations in the areas of quality assurance and improvement activities, or accreditation, certification, licensing or credentialing. ',
   PlanSponsor:
-    'Can we use and disclose protected health information to Plan Sponsors?',
+    'We may use and disclose protected health information to Plan Sponsors. ',
   PlanSponsorDetail1:
     'A plan sponsor may contact us regarding a member’s question, concern, issue regarding claim, benefits, service, coverage, etc. We may also disclose summary health information about the enrollees in your group health plan to the plan sponsor to obtain premium bids for the health insurance coverage offered through your group health plan or to decide whether to modify, amend or terminate your group health plan. ',
   PublicHealth:
-    'Can we use and disclose protected health information for public health activities that are permitted or required by law?',
+    'We may use and disclose protected health information for public health activities that are permitted or required by law. ',
   PublicHealthDetail1:
     'For example, we may use or disclose information for the purpose of preventing or controlling disease, injury, or disability. ',
   Oversight:
-    'Can we use and disclose protected health information to a health oversight agency for activities authorized by law?',
+    'We may use and disclose protected health information to a health oversight agency for activities authorized by law. ',
   OversightDetail1:
     'A health oversight agency for activities authorized by law includes  audits; investigations; inspections; licensure or disciplinary actions; or civil, administrative, or criminal proceedings or actions. Oversight agencies seeking this information include government agencies that oversee: (i) the health care system; (ii) government benefit programs; (iii)other government regulatory programs; and (iv) compliance with civil rights laws. ',
   LegalProceedings:
@@ -295,16 +295,47 @@ const GetDeductibleLinkedHandler = {
   handle(handlerInput) {
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
-    const deductibleAmount =
-      (sessionAttributes.firstName.toLowerCase() === 'chenxiao'
-        ? '600 dollars'
-        : '1000 dollars') + '. ';
-    const say =
-      requestAttributes.t('DEDUCTIBLE_MESSAGE', deductibleAmount) +
-      repromptOutput;
+    let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
+    let say = '';
+    if (sessionAttributes.deductibleAllowed) {
+      say = "You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ";
+    } else {
+      say = 'Can we use your deductible data to offer the service? '
+      repromptOutput = 'Answer yes or no. '
+      sessionAttributes.isAskingDeductible = true;
+      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+    }
     return handlerInput.responseBuilder
-      .speak(say)
+      .speak(say + repromptOutput)
+      .reprompt(repromptOutput)
+      .getResponse();
+  },
+};
+
+const PrimaryDoctorHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      !isAccountNotLinked(handlerInput) &&
+      request.type === 'IntentRequest' &&
+      request.intent.name === 'PrimaryDoctorIntent'
+    );
+  },
+  handle(handlerInput) {
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
+    let say = '';
+    if (sessionAttributes.primaryDoctorAllowed) {
+      say = 'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
+    } else {
+      say = 'Can we access your primary doctor information to offer the service? '
+      repromptOutput = 'Answer yes or no. '
+      sessionAttributes.isAskingDoctor = true;
+      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+    }
+    return handlerInput.responseBuilder
+      .speak(say + repromptOutput)
       .reprompt(repromptOutput)
       .getResponse();
   },
@@ -320,9 +351,9 @@ const MainUseDisclosure = {
   },
   handle(handlerInput) {
     const say =
-      'We will ask you servel privacy-related questions and setting options. ' +
-      'So, first, can we collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively? '; //  TODO
-    const repromptText = 'Answer yes, no or more details. ';
+      'We will show you servel privacy-related statements. ' +
+      'First, we may collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively. '; //  TODO
+    const repromptText = 'Answer yes or more details. ';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     attributes.skillState = 'MainUseSummary';
     attributes.isConfiguring = true;
@@ -344,57 +375,36 @@ const DescribeSettings = {
     );
   },
   handle(handlerInput) {
-    const attributes = handlerInput.attributesManager.getSessionAttributes();
-    if (typeof attributes.isConfiguring === 'undefined') {
-      return handlerInput.responseBuilder
-        .speak(REPROMPT_PRIVACY_CONFIGURE_MESSAGE)
-        .reprompt()
-        .getResponse();
-    }
-    const useSpeak = 'According to your privacy settings, we will use and disclose your PHI for ';
-    const notUseSpeak = 'According to your privacy settings, we will not use and disclose your PHI for ';
-    const repromptText = "What's your request?";
-    const use = [];
-    const notUse = [];
-    if (attributes.MainUseSummary) {
-      use.push('payment and healthcare operations');
-    } else {
-      notUse.push('payment and healthcare operations');
-    }
-    if (attributes.SharePHI) {
-      use.push('sharing with third-parties');
-    } else {
-      notUse.push('sharing with third-parties');
-    }
-    if (attributes.PlanSponsor) {
-      use.push('plan sponsors');
-    } else {
-      notUse.push('plan sponsors');
-    }
-    if (attributes.PublicHealth) {
-      use.push('public health activities');
-    } else {
-      notUse.push('public health activities');
-    }
-    if (attributes.Oversight) {
-      use.push('oversight agencies');
-    } else {
-      notUse.push('oversight agencies');
-    }
-    const useConditions = use.join(', ');
-    let notUseConditions = notUse.join(', ');
-    let say = '';
-    if (useConditions !== '') {
-      say += useSpeak + useConditions + '. '; 
-    }
-    if (notUseConditions !== '') {
-      say += notUseSpeak + notUseConditions + '. ';
-    }
+    const say = 'According to your privacy settings, we will use and disclose your PHI for payment and health care operations, to other covered entities, plan sponsors, public health activities and health oversight agencies. ';
+    const repromptText = "What's your next request?";
     return handlerInput.responseBuilder
       .speak(say)
       .reprompt(repromptText)
       .getResponse();
   },
+};
+
+const revokePersonalSettingsHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      !isAccountLinked(handlerInput) &&
+      request.intent.name === 'RevokeIntent'
+    );
+  },
+  handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    attributes.agreedPolicy = false;
+    attributes.deductibleAllowed = false;
+    attributes.primaryDoctorAllowed = false;
+    handlerInput.attributesManager.setSessionAttributes(attributes);
+    const say = 'We have revoked all your personal settings. ';
+    const repromptText = "What's your next request?";
+    return handlerInput.responseBuilder
+      .speak(say)
+      .reprompt(repromptText)
+      .getResponse();
+  }
 };
 
 const OptionsHandler = {
@@ -412,44 +422,63 @@ const OptionsHandler = {
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    let currentState = attributes.skillState;
-    let repromptText = 'Answer yes, no or more details. ';
+    let repromptText = 'Answer yes, or more details. ';
     let say = '';
-    let flag = false;
+    if (attributes.isAskingDeductible) {
+      repromptText = "What's your next request? ";
+      if (option === 'AMAZON.YesIntent') {
+        say = 'You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ';
+        attributes.isAskingDeductible = false;
+        attributes.deductibleAllowed = true;
+      } else if (option === 'AMAZON.NoIntent') {
+        say = 'We cannot answer your question if you do not give us the permission. ';
+        attributes.isAskingDeductible = false;
+      }
+      handlerInput.attributesManager.setSessionAttributes(attributes);
+      return handlerInput.responseBuilder
+          .speak(say + repromptText)
+          .reprompt(repromptText)
+          .getResponse();
+    }
+    if (attributes.isAskingDoctor) {
+      repromptText = "What's your next request? ";
+      if (option === 'AMAZON.YesIntent') {
+        say = 'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
+        attributes.isAskingDoctor = false;
+        attributes.primaryDoctorAllowed = true;
+      } else if (option === 'AMAZON.NoIntent') {
+        say = 'We cannot answer your question if you do not give us the permission. ';
+        attributes.isAskingDoctor = false;
+      }
+      handlerInput.attributesManager.setSessionAttributes(attributes);
+      return handlerInput.responseBuilder
+          .speak(say + repromptText)
+          .reprompt(repromptText)
+          .getResponse();
+    }
+    //let currentState = attributes.skillState;
     if (option === 'AMAZON.YesIntent' || option === 'AMAZON.NoIntent') {
       attributes.skillState = detail_map[attributes.skillState][0];
-      if (option === 'AMAZON.YesIntent' ) {
-          flag = true;
-      }
-      //  Send to cognito server
-      if (currentState.includes('MainUseSummary')) {
-        attributes.MainUseSummary = flag;
-      } else if (currentState.includes('SharePHI')) {
-        attributes.SharePHI = flag;
-      } else if (currentState.includes('PlanSponsor')) {
-        attributes.PlanSponsor = flag;
-      } else if (currentState.includes('PublicHealth')) {
-        attributes.PublicHealth = flag;
-      } else if (currentState.includes('Oversight')) {
-        attributes.Oversight = flag;
+      if (option === 'AMAZON.NoIntent') {
+        say = "I'm sorry, but you need to answer yes for the policy to use our product. "
+        repromptText = "What's your next request? ";
+        attributes.isConfiguring = false;
+        handlerInput.attributesManager.setSessionAttributes(attributes);
+        return handlerInput.responseBuilder
+          .speak(say + repromptText)
+          .reprompt(repromptText)
+          .getResponse();
       }
     } else {
       attributes.skillState = detail_map[attributes.skillState][1];
-    }
-    if (attributes.skillState.includes('Rights')) {
-      repromptText = 'Answer yes to skip or more details. ';
     }
     if (
       detail_map[attributes.skillState] &&
       detail_map[attributes.skillState][0] !== 'allDone' &&
       detail_map[attributes.skillState][0] ===
-        detail_map[attributes.skillState][1]
+      detail_map[attributes.skillState][1]
     ) {
-      if (attributes.skillState.includes('Rights')) {
-        repromptText = 'Answer yes to listen to the next question. ';
-      } else {
-        repromptText = 'Answer yes or no to listen to the next question. ';
-      }
+      repromptText = 'Answer yes to listen to the next question. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
@@ -463,6 +492,103 @@ const OptionsHandler = {
       .reprompt(repromptText)
       .getResponse();
   },
+};
+
+const AgreeHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    return (
+      !attributes.agreedPolicy &&
+      (request.intent.name === 'AgreeIntent' ||
+        request.intent.name === 'DisagreeIntent')
+    );
+  },
+  handle(handlerInput) {
+    const option = handlerInput.requestEnvelope.request.intent.name;
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    //let currentState = attributes.skillState;
+    let repromptText = "What's your next request? ";
+    let say = '';
+    if (option === 'AgreeIntent') {
+      attributes.agreedPolicy = true;
+      handlerInput.attributesManager.setSessionAttributes(attributes);
+      say = 'You have agreed our digital privacy policy. Have fun using the product. '
+      return handlerInput.responseBuilder
+        .speak(say + repromptText)
+        .reprompt(repromptText)
+        .getResponse();
+    } else {
+      attributes.agreedPolicy = detail_map[attributes.skillState][1];
+      say = 'You do not agree our digital privacy policy. For now, you can not use the product. '
+      return handlerInput.responseBuilder
+        .speak(say)
+        .getResponse();
+    }
+  },
+};
+
+const FallBackHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      request.intent.name === 'AMAZON.FallbackIntent'
+    );
+  },
+  handle(handlerInput) {
+    let repromptText = "What's your next request? ";
+    let say = "Sorry, I'm not sure how to answer that, meanwhile you can call 1-800-701-2324 for more information. ";
+    return handlerInput.responseBuilder
+      .speak(say + repromptText)
+      .reprompt(repromptText)
+      .getResponse();
+  },
+};
+
+const CopayHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      request.intent.name === 'WhatIsCopayIntent'
+    );
+  },
+  handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    let say = '';
+    const repromptText = "What's your next request? ";
+    if (attributes.agreedPolicy) {
+      say = 'A copay is the set amount you pay for a covered healthcare service. You may be also responsible for additional charges, such as those for non-preventive services. ';
+    } else {
+      say = 'You have not agreed our digital privacy policy, so we can not proceed your request. ';
+    }
+    return handlerInput.responseBuilder
+      .speak(say + repromptText)
+      .reprompt(repromptText)
+      .getResponse();
+  }
+};
+
+const MedicalcareHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      request.intent.name === 'WhatIsMedicareIntent'
+    );
+  },
+  handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
+    let say = '';
+    const repromptText = "What's your next request? ";
+    if (attributes.agreedPolicy) {
+      say = "Medicare is a national health insurance program providing coverage for Americans aged 65 and older. It also covers younger people with a disability, as well as people with end stage renal disease and amyotrophic lateral sclerosis (ALS) or Lou Gehrig's disease. ";
+    } else {
+      say = 'You have not agreed our digital privacy policy, so we can not proceed your request. ';
+    }
+    return handlerInput.responseBuilder
+      .speak(say + repromptText)
+      .reprompt(repromptText)
+      .getResponse();
+  }
 };
 
 const GetDeductibleNotLinkedHandler = {
@@ -501,11 +627,14 @@ const SayHelloHandler = {
   handle(handlerInput) {
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    sessionAttributes.agreedPolicy = false;
+    sessionAttributes.deductibleAllowed = false;
+    sessionAttributes.primaryDoctorAllowed = false;
     const { isConfiguring } = sessionAttributes;
-    let repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
-    if (typeof isConfiguring === 'undefined') {
-      repromptOutput = REPROMPT_PRIVACY_CONFIGURE_MESSAGE;
-    }
+    let repromptOutput = 'Please read the policy I send to your mobile app. After reading it, answer I agree or I disagree to continue. ';
+    // if (typeof isConfiguring === 'undefined') {
+    //   repromptOutput = REPROMPT_PRIVACY_CONFIGURE_MESSAGE;
+    // }
     const speakOutput =
       requestAttributes.t(
         'GREETING_MESSAGE',
@@ -827,7 +956,12 @@ exports.handler = skillBuilder
     SessionEndedRequestHandler,
     MainUseDisclosure,
     OptionsHandler,
-    DescribeSettings
+    DescribeSettings,
+    AgreeHandler,
+    FallBackHandler,
+    CopayHandler,
+    MedicalcareHandler,
+    revokePersonalSettingsHandler
   )
   .addRequestInterceptors(
     RequestLog,
