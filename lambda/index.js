@@ -4,6 +4,7 @@ const {
   GetLinkedInfoInterceptor,
   LocalizationInterceptor,
   RequestLog,
+  ResponseLog
 } = require('./interceptors');
 
 // utils

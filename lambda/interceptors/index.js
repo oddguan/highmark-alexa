@@ -11,6 +11,15 @@ const RequestLog = {
   },
 };
 
+const ResponseLog = {
+  process(handlerInput) {
+    console.log(`RESPONSE BUILDER = ${JSON.stringify(handlerInput)}`);
+    console.log(
+      `RESPONSE = ${JSON.stringify(handlerInput.responseBuilder.getResponse())}`
+    );
+  },
+};
+
 const LocalizationInterceptor = {
   process(handlerInput) {
     const localizationClient = i18n.use(sprintf).init({
@@ -80,6 +89,7 @@ const GetLinkedInfoInterceptor = {
 
 module.exports = {
   RequestLog,
+  ResponseLog,
   LocalizationInterceptor,
   GetLinkedInfoInterceptor,
 };
