@@ -9,7 +9,7 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@v1
       - name: zip all files
-        run: cd lambda && zip ../code.zip * -x '*node_modules*' && cd ..
+        run: cd lambda && zip -r ../code.zip * -x '*node_modules*' && cd ..
       - name: deploy to lambda
         uses: appleboy/lambda-action@master
         with:
