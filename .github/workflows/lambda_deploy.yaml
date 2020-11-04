@@ -12,7 +12,7 @@ jobs:
         run: zip -j code.zip lambda/* -x '*node_modules*'
       - name: deploy to lambda
         uses: appleboy/lambda-action@master
-        withchange zip command:
+        with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
