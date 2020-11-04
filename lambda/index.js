@@ -1,6 +1,10 @@
 const Alexa = require('ask-sdk');
 
-const interceptors = require('./interceptors');
+const {
+  GetLinkedInfoInterceptor,
+  LocalizationInterceptor,
+  RequestLog,
+} = require('./interceptors');
 
 // utils
 const {
@@ -694,7 +698,11 @@ exports.handler = skillBuilder
     PolicyDeliverHandler,
     HipaaAuthHandler
   )
-  .addRequestInterceptors(...interceptors)
+  .addRequestInterceptors(
+    GetLinkedInfoInterceptor,
+    LocalizationInterceptor,
+    RequestLog
+  )
   .addResponseInterceptors(ResponseLog)
   .addErrorHandlers(ErrorHandler)
   .withCustomUserAgent('linked-profile/v1')
