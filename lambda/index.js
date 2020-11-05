@@ -489,7 +489,7 @@ const SayHelloHandler = {
 
 const PolicyDeliverHandler = {
   canHandle(handlerInput) {
-    const { request } = handlerInput.requestEnvelope.request;
+    const request = handlerInput.requestEnvelope.request;
     return (
       request.intent.name === 'WrittenPolicyIntent' ||
       request.intent.name === 'ListenPolicyIntent'
