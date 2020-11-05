@@ -101,10 +101,10 @@ const HipaaAuthHandler = {
     );
   },
   handle(handlerInput) {
-    const say = ''; //  TODO:  TOALERT
+    const say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? '; //  TODO:  TOALERT
     const repromptText = 'Answer yes, no, or more details. ';
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    attributes.skillState = 'MainUseSummary'; //  TODO:  TOALERT
+    attributes.skillState = 'AuthPHI'; //  TODO:  TOALERT
     attributes.isConfiguring = true;
     handlerInput.attributesManager.setSessionAttributes(attributes);
     return handlerInput.responseBuilder
@@ -259,16 +259,19 @@ const OptionsHandler = {
       detail_map[attributes.skillState][0] ===
         detail_map[attributes.skillState][1]
     ) {
-      repromptText = 'Answer okay to listen to the next statement. ';
+      repromptText = 'Answer yes or no to listen to the next statement. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
     if (attributes.skillState === 'allDone') {
       attributes.isConfiguring = false;
+      if (attributes.agreedPolicy) {
+        attributes.agreedHipaaAuth = true;
+      } else {
+        attributes.agreedPolicy = true;
+      }
       handlerInput.attributesManager.setSessionAttributes(attributes);
       repromptText = "What's your next request? ";
-    } else if (attributes.skillState === 'PrivacyRightsSummary') {
-      repromptText = '';
     }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
@@ -515,8 +518,8 @@ const PolicyDeliverHandler = {
     } else {
       // name === ListenPolicyIntent
       if (isLoggedIn) {
-        say = 'First Question on HIPAA Auth. '; // TODO:  TOALERT
-        attributes.skillState = 'MainUseSummary'; //  TODO:  TOALERT
+        say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? '; // TODO:  TOALERT
+        attributes.skillState = 'AuthPHI'; //  TODO:  TOALERT
       } else {
         say = 'First Question on digital policy. '; // TODO:  TOALERT
         attributes.skillState = 'MainUseSummary'; //  TODO:  TOALERT
