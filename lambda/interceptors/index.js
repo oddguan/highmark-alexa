@@ -3,6 +3,8 @@ const sprintf = require('i18next-sprintf-postprocessor');
 
 const languageStrings = require('../constants/language-strings');
 
+const { getUserData, getAttribute } = require('../utils');
+
 exports.RequestLog = {
   process(handlerInput) {
     console.log(
