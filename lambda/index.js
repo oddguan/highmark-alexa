@@ -319,7 +319,7 @@ const AgreeHandler = {
         attributes.agreedHipaaAuth = true;
         handlerInput.attributesManager.setSessionAttributes(attributes);
         say =
-          'You have agreed our HIPAA Authorization. Have fun using the all of our features. ';
+          'You have agreed our HIPAA Authorization. Have fun using all of our features. ';
         return handlerInput.responseBuilder
           .speak(say + repromptText)
           .reprompt(repromptText)
@@ -327,7 +327,10 @@ const AgreeHandler = {
       } else {
         say =
           'You did not agree to our HIPAA Authorization. For now, you can not use the post-password functionalities. ';
-        return handlerInput.responseBuilder.speak(say + repromptText).reprompt(repromptText).getResponse();
+        return handlerInput.responseBuilder
+          .speak(say + repromptText)
+          .reprompt(repromptText)
+          .getResponse();
       }
     } else {
       // not logged in, do the digital privacy policy
@@ -669,8 +672,12 @@ const ErrorHandler = {
   handle(handlerInput, error) {
     console.log(`Error handled: ${error.stack}`);
     const speakOutput =
-      "Sorry, I can't understand that request. Please try again.";
-    return handlerInput.responseBuilder.speak(speakOutput).getResponse();
+      "Sorry, I can't understand that request. Please try again. ";
+    const repromptText = "What's your next request? ";
+    return handlerInput.responseBuilder
+      .speak(speakOutput + repromptText)
+      .reprompt(repromptText)
+      .getResponse();
   },
 };
 
