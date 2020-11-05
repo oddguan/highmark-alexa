@@ -667,9 +667,9 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     console.log(`Error handled: ${error.stack}`);
-    const speakOutput = requestAttributes.t('ERR_MESSAGE');
+    const speakOutput =
+      "Sorry, I can't understand that request. Please try again.";
     return handlerInput.responseBuilder.speak(speakOutput).getResponse();
   },
 };
