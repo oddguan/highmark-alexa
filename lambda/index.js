@@ -327,7 +327,7 @@ const AgreeHandler = {
       } else {
         say =
           'You did not agree to our HIPAA Authorization. For now, you can not use the post-password functionalities. ';
-        return handlerInput.responseBuilder.speak(say).getResponse();
+        return handlerInput.responseBuilder.speak(say + repromptText).reprompt(repromptText).getResponse();
       }
     } else {
       // not logged in, do the digital privacy policy
