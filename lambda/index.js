@@ -449,11 +449,11 @@ const SayHelloHandler = {
   handle(handlerInput) {
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    sessionAttributes.agreedPolicy = false;
+    const isLoggedIn = isAccountLinked(handlerInput);
+    sessionAttributes.agreedPolicy = isLoggedIn;
     sessionAttributes.agreedHipaaAuth = false;
     sessionAttributes.deductibleAllowed = false;
     sessionAttributes.primaryDoctorAllowed = false;
-    const isLoggedIn = isAccountLinked(handlerInput);
     const policyName = isLoggedIn
       ? 'HIPAA Authorization'
       : 'Digital Privacy Policy';
