@@ -3,7 +3,7 @@ const sprintf = require('i18next-sprintf-postprocessor');
 
 const languageStrings = require('../constants/language-strings');
 
-const RequestLog = {
+exports.RequestLog = {
   process(handlerInput) {
     console.log(
       `REQUEST ENVELOPE = ${JSON.stringify(handlerInput.requestEnvelope)}`
@@ -11,7 +11,7 @@ const RequestLog = {
   },
 };
 
-const ResponseLog = {
+exports.ResponseLog = {
   process(handlerInput) {
     console.log(`RESPONSE BUILDER = ${JSON.stringify(handlerInput)}`);
     console.log(
@@ -20,7 +20,7 @@ const ResponseLog = {
   },
 };
 
-const LocalizationInterceptor = {
+exports.LocalizationInterceptor = {
   process(handlerInput) {
     const localizationClient = i18n.use(sprintf).init({
       lng: handlerInput.requestEnvelope.request.locale,
@@ -53,7 +53,7 @@ const LocalizationInterceptor = {
 // GetLinkedInfoInterceptor: Interceptor function that is executed on every
 // request sent to the skill
 //
-const GetLinkedInfoInterceptor = {
+exports.GetLinkedInfoInterceptor = {
   async process(handlerInput) {
     if (
       handlerInput.requestEnvelope.session.new &&
@@ -85,11 +85,4 @@ const GetLinkedInfoInterceptor = {
       }
     }
   },
-};
-
-module.exports = {
-  RequestLog,
-  ResponseLog,
-  LocalizationInterceptor,
-  GetLinkedInfoInterceptor,
 };
