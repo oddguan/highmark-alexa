@@ -12,6 +12,7 @@ const {
   getResolvedSlotIDValue,
   isAccountLinked,
   isAccountNotLinked,
+  handleDisagreedHIPAAAuth,
 } = require('./utils');
 
 // custom constants
@@ -50,7 +51,7 @@ const GetDeductibleLinkedHandler = {
         .reprompt(repromptOutput)
         .getResponse();
     } else {
-      return handleDiagreedHIPAAAuth();
+      return handleDisagreedHIPAAAuth();
     }
   },
 };
@@ -89,17 +90,6 @@ const PrimaryDoctorHandler = {
       return handleDisagreedHIPAAAuth();
     }
   },
-};
-
-const handleDisagreedHIPAAAuth = (handlerInput) => {
-  const say =
-    'I cannot access your personal health information if you do not agree to our HIPAA Authorization. To do that, please say, HIPAA Authorization. ';
-  const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
-  const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
-  return handlerInput.responseBuilder
-    .speak(say + repromptOutput)
-    .reprompt(repromptOutput)
-    .getResponse();
 };
 
 const HipaaAuthHandler = {

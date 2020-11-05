@@ -73,6 +73,17 @@ function getEnvVar(envVarName, defaultValue) {
   return defaultValue;
 }
 
+function handleDisagreedHIPAAAuth(handlerInput) {
+  const say =
+    'I cannot access your personal health information if you do not agree to our HIPAA Authorization. To do that, please say, HIPAA Authorization. ';
+  const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+  const repromptOutput = requestAttributes.t('FOLLOW_UP_MESSAGE');
+  return handlerInput.responseBuilder
+    .speak(say + repromptOutput)
+    .reprompt(repromptOutput)
+    .getResponse();
+}
+
 module.exports = {
   getAttribute,
   getUserData,
@@ -80,4 +91,5 @@ module.exports = {
   isAccountLinked,
   isAccountNotLinked,
   getEnvVar,
+  handleDisagreedHIPAAAuth,
 };
