@@ -186,7 +186,6 @@ const OptionsHandler = {
     const { request } = handlerInput.requestEnvelope;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
     return (
-      !isAccountNotLinked(handlerInput) &&
       (attributes.isConfiguring ||
         attributes.isAskingDeductible ||
         attributes.isAskingDoctor) &&
