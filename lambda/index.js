@@ -51,7 +51,7 @@ const GetDeductibleLinkedHandler = {
         .reprompt(repromptOutput)
         .getResponse();
     } else {
-      return handleDisagreedHIPAAAuth();
+      return handleDisagreedHIPAAAuth(handleDisagreedHIPAAAuth);
     }
   },
 };
@@ -87,7 +87,7 @@ const PrimaryDoctorHandler = {
         .getResponse();
     } else {
       // user needs to agree to hipaa auth to use post-password functionalities
-      return handleDisagreedHIPAAAuth();
+      return handleDisagreedHIPAAAuth(handlerInput);
     }
   },
 };
