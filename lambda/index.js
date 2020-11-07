@@ -521,8 +521,8 @@ const PolicyDeliverHandler = {
         say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? '; // TODO:  TOALERT
         attributes.skillState = 'AuthPHI'; //  TODO:  TOALERT
       } else {
-        say = 'First Question on digital policy. '; // TODO:  TOALERT
-        attributes.skillState = 'MainUseSummary'; //  TODO:  TOALERT
+        say = 'We will ask you several questions about our digital privacy policy. So first, can Highmark Health collect your basic information via online forms? '; // TODO:  TOALERT
+        attributes.skillState = 'BasicInfo'; //  TODO:  TOALERT
       }
       repromptText = 'Answer yes, no, or more details. ';
       attributes.isConfiguring = true;

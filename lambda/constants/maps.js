@@ -8,103 +8,17 @@ exports.detail_map = {
   AuthThirdParty: ['allDone', 'AuthThirdPartyDetail1'],
   AuthThirdPartyDetail1: ['allDone', 'AuthThirdPartyDetail2'],
   AuthThirdPartyDetail2: ['allDone', 'allDone'],
-  // PublicHealth: ['Oversight', 'PublicHealthDetail1'],
-  // PublicHealthDetail1: ['Oversight', 'Oversight'],
-  // Oversight: ['PrivacyRightsSummary', 'OversightDetail1'],
-  // OversightDetail1: ['PrivacyRightsSummary', 'PrivacyRightsSummary'],
-  // LegalProceedings: ['LawEnforcementOfficials', 'LegalProceedingsDetail1'],
-  // LegalProceedingsDetail1: [
-  //   'LawEnforcementOfficials',
-  //   'LawEnforcementOfficials',
-  // ],
-  // LawEnforcementOfficials: ['Agencies', 'LawEnforcementOfficialsDetail1'],
-  // LawEnforcementOfficialsDetail1: ['Agencies', 'Agencies'],
-  // Agencies: ['Research', 'AgenciesDetail1'],
-  // AgenciesDetail1: ['Research', 'Research'],
-  // Research: ['PreventThreat', 'ResearchDetail1'],
-  // ResearchDetail1: ['PreventThreat', 'PreventThreat'],
-  // PreventThreat: ['NationSecurity', 'PreventThreatDetail1'],
-  // PreventThreatDetail1: ['NationSecurity', 'NationSecurity'],
-  // NationSecurity: ['Inmates', 'NationSecurityDetail1'],
-  // NationSecurityDetail1: ['Inmates', 'Inmates'],
-  // Inmates: ['WorkersCompensation', 'InmatesDetail1'],
-  // InmatesDetail1: ['WorkersCompensation', 'WorkersCompensation'],
-  // WorkersCompensation: ['Others', 'WorkersCompensationDetail1'],
-  // WorkersCompensationDetail1: ['Others', 'Others'],
-  // Others: ['Underwriting', 'OthersDetail1'],
-  // OthersDetail1: ['Underwriting', 'Underwriting'],
-  // Underwriting: ['PrivacyRightsSummary', 'UnderwritingDetail1'],
-  // UnderwritingDetail1: ['PrivacyRightsSummary', 'PrivacyRightsSummary'],
-  // PrivacyRightsSummary: ['allDone', 'PrivacyRightsQuestion1Summary'],
-  // PrivacyRightsQuestion1Summary: [
-  //   'PrivacyRightsQuestion2Summary',
-  //   'PrivacyRightsQuestion1Detail1',
-  // ],
-  // PrivacyRightsQuestion1Detail1: [
-  //   'PrivacyRightsQuestion2Summary',
-  //   'PrivacyRightsQuestion1Detail2',
-  // ],
-  // PrivacyRightsQuestion1Detail2: [
-  //   'PrivacyRightsQuestion2Summary',
-  //   'PrivacyRightsQuestion1Detail3',
-  // ],
-  // PrivacyRightsQuestion1Detail3: [
-  //   'PrivacyRightsQuestion2Summary',
-  //   'PrivacyRightsQuestion2Summary',
-  // ],
-  // PrivacyRightsQuestion2Summary: [
-  //   'PrivacyRightsQuestion3Summary',
-  //   'PrivacyRightsQuestion2Detail1',
-  // ],
-  // PrivacyRightsQuestion2Detail1: [
-  //   'PrivacyRightsQuestion3Summary',
-  //   'PrivacyRightsQuestion2Detail2',
-  // ],
-  // PrivacyRightsQuestion2Detail2: [
-  //   'PrivacyRightsQuestion3Summary',
-  //   'PrivacyRightsQuestion2Detail3',
-  // ],
-  // PrivacyRightsQuestion2Detail3: [
-  //   'PrivacyRightsQuestion3Summary',
-  //   'PrivacyRightsQuestion2Detail4',
-  // ],
-  // PrivacyRightsQuestion2Detail4: [
-  //   'PrivacyRightsQuestion3Summary',
-  //   'PrivacyRightsQuestion3Summary',
-  // ],
-  // PrivacyRightsQuestion3Summary: [
-  //   'PrivacyRightsQuestion4Summary',
-  //   'PrivacyRightsQuestion3Detail1',
-  // ],
-  // PrivacyRightsQuestion3Detail1: [
-  //   'PrivacyRightsQuestion4Summary',
-  //   'PrivacyRightsQuestion3Detail2',
-  // ],
-  // PrivacyRightsQuestion3Detail2: [
-  //   'PrivacyRightsQuestion4Summary',
-  //   'PrivacyRightsQuestion3Detail3',
-  // ],
-  // PrivacyRightsQuestion3Detail3: [
-  //   'PrivacyRightsQuestion4Summary',
-  //   'PrivacyRightsQuestion4Summary',
-  // ],
-  // PrivacyRightsQuestion4Summary: [
-  //   'PrivacyRightsQuestion5Summary',
-  //   'PrivacyRightsQuestion4Detail1',
-  // ],
-  // PrivacyRightsQuestion4Detail1: [
-  //   'PrivacyRightsQuestion5Summary',
-  //   'PrivacyRightsQuestion4Detail2',
-  // ],
-  // PrivacyRightsQuestion4Detail2: [
-  //   'PrivacyRightsQuestion5Summary',
-  //   'PrivacyRightsQuestion5Summary',
-  // ],
-  // PrivacyRightsQuestion5Summary: ['allDone', 'PrivacyRightsQuestion5Detail1'],
-  // PrivacyRightsQuestion5Detail1: ['allDone', 'PrivacyRightsQuestion5Detail2'],
-  // PrivacyRightsQuestion5Detail2: ['allDone', 'PrivacyRightsQuestion5Detail3'],
-  // PrivacyRightsQuestion5Detail3: ['allDone', 'PrivacyRightsQuestion5Detail4'],
-  // PrivacyRightsQuestion5Detail4: ['allDone', 'allDone'],
+
+  BasicInfo: ['SecurePortal', 'BasicInfoDetail1'],
+  BasicInfoDetail1: ['SecurePortal', 'BasicInfoDetail2'],
+  BasicInfoDetail2: ['SecurePortal', 'SecurePortal'],
+  SecurePortal: ['InteractiveChat', 'SecurePortalDetail1'],
+  SecurePortalDetail1: ['InteractiveChat', 'SecurePortalDetail2'],
+  SecurePortalDetail2: ['InteractiveChat', 'SecurePortalDetail3'],
+  SecurePortalDetail3: ['InteractiveChat', 'InteractiveChat'],
+  InteractiveChat: ['allDone', 'InteractiveChatDetail1'],
+  InteractiveChatDetail1: ['allDone', 'InteractiveChatDetail2'],
+  InteractiveChatDetail2: ['allDone', 'allDone'],
 };
 
 exports.question_map = {
@@ -126,6 +40,26 @@ exports.question_map = {
     'Highmark Health recognizes that its business partners may not be subject to the same range of federal and/or state laws governing the collection, use, and disclosure of Personal Information. Nevertheless, we have taken a number of steps to ensure that your information is handled responsibly, such as by maintaining a rigorous internal privacy and data ethics program, negotiating restrictive contract terms with third party service providers, and seeking to obtain your affirmative authorization, as applicable. ',
   AuthThirdPartyDetail2:
     'If you have any more questions, please call our customer service at 1-800-241-5704 with your member ID handy. ',
+  BasicInfo:
+    'Can Highmark Health collect your basic information via online forms? ',
+  BasicInfoDetail1:
+    'Highmark Health invites users to contact us using inquiry forms available on our corporate-owned platforms for account questions or to learn more about our products and services. The personal information we request on inquiry forms generally includes your name, address, phone number, email address, and the details of your inquiry. We may use such information to review and respond to your request or communication, or use contracted service providers to do that for us. ',
+  BasicInfoDetail2:
+    'If you have more questions about this Online Privacy Policy, or concerns regarding your personal information, please contact us by emailing privacy@highmarkhealth.org or calling 1-866-228-9424. ',
+  SecurePortal:
+    'Can Highmark Health collect your secure portals? ',
+  SecurePortalDetail:
+    'Highmark Health has established secure portals for use by members and patients. When you access them to review your health and benefit-related information or to contact your health plan or physician’s office regarding certain inquiries, such as reviewing claims or requesting prescription refills, we collect certain personal information, such as your user ID and password, IP address, click streams, and cookie ID. ',
+  SecurePortalDetail2:
+    'Communications sent by or to members or patients who choose to use these secure portals may also be recorded in transaction logs to monitor content, compliance with applicable law and regulations, or functionality of the services. If the information collected is deemed to be PHI as noted above, its use and disclosure will be subject to HIPAA and an applicable NPP. ',
+  SecurePortalDetail3:
+    'If you have more questions about this Online Privacy Policy, or concerns regarding your personal information, please contact us by emailing privacy@highmarkhealth.org or calling 1-866-228-9424. ',
+  InteractiveChat:
+    'Can Highmark Health collect your information via interactive chat? ',
+  InteractiveChatDetail1:
+    'Our consumer platforms may offer interactive chat technology to assist users. That interactive technology may collect personal information such as name, date of birth, address, and account number for authentication purposes or to provide specific plan benefit details in a personalized response. It may also capture session-related information such as web logs to document the interaction. If the information collected is deemed to be PHI as noted above, its use and disclosure will be subject to HIPAA and an applicable NPP. ',
+  InteractiveChatDetail2:
+    'If you have more questions about this Online Privacy Policy, or concerns regarding your personal information, please contact us by emailing privacy@highmarkhealth.org or calling 1-866-228-9424. ',
 
   // PrivacyRightsSummary:
   //   'You have rights with respect to your protected health information. If you want more details, please say more details, or say okay to skip. ',
