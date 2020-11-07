@@ -48,7 +48,7 @@ exports.question_map = {
     'If you have more questions about this Online Privacy Policy, or concerns regarding your personal information, please contact us by emailing privacy@highmarkhealth.org or calling 1-866-228-9424. ',
   SecurePortal:
     'Can Highmark Health collect your secure portals? ',
-  SecurePortalDetail:
+  SecurePortalDetail1:
     'Highmark Health has established secure portals for use by members and patients. When you access them to review your health and benefit-related information or to contact your health plan or physician’s office regarding certain inquiries, such as reviewing claims or requesting prescription refills, we collect certain personal information, such as your user ID and password, IP address, click streams, and cookie ID. ',
   SecurePortalDetail2:
     'Communications sent by or to members or patients who choose to use these secure portals may also be recorded in transaction logs to monitor content, compliance with applicable law and regulations, or functionality of the services. If the information collected is deemed to be PHI as noted above, its use and disclosure will be subject to HIPAA and an applicable NPP. ',
