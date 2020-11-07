@@ -97,66 +97,98 @@ const HipaaAuthHandler = {
     const { request } = handlerInput.requestEnvelope;
     return (
       !isAccountNotLinked(handlerInput) &&
-      request.intent.name === 'HIPAAAuthIntent'
+      request.intent.name === 'HipaaAuthIntent'
     );
   },
   handle(handlerInput) {
-    const say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? '; //  TODO:  TOALERT
-    const repromptText = 'Answer yes, no, or more details. ';
-    const attributes = handlerInput.attributesManager.getSessionAttributes();
-    attributes.skillState = 'AuthPHI'; //  TODO:  TOALERT
-    attributes.isConfiguring = true;
-    handlerInput.attributesManager.setSessionAttributes(attributes);
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const isLoggedIn = isAccountLinked(handlerInput);
+    sessionAttributes.agreedPolicy = isLoggedIn;
+    sessionAttributes.agreedHipaaAuth = false;
+    sessionAttributes.deductibleAllowed = false;
+    sessionAttributes.primaryDoctorAllowed = false;
+    const policyName = isLoggedIn
+      ? 'HIPAA Authorization'
+      : 'Digital Privacy Policy';
+    let repromptOutput = '';
+    const ASK_WRITTEN_OR_LISTEN = `To do that, you can either say, written, and I will send the written version of the ${policyName} to your mobile app. Or you can say, listen, and agreeing to the ${policyName} through voice. Which one do you prefer?`;
+    const card = [];
+    if (isLoggedIn) {
+      // push HIPAA auth
+      repromptOutput =
+        'You need to agree to our HIPAA Authorization in order to use post-password functionalities. This is required because some of the questions require me to access your personal health information. ' +
+        ASK_WRITTEN_OR_LISTEN;
+      card.push('Highmark Health HIPAA Authorization');
+      card.push(POST_LOGIN_HIPAA_AUTH);
+    } else {
+      // push digital privacy policy
+      repromptOutput =
+        'You need to agree to our digital privacy policy in order to use pre-password functionalities. ' +
+        ASK_WRITTEN_OR_LISTEN;
+      card.push('Highmark Health Digital Privacy Policy');
+      card.push(PRE_LOGIN_PRIVACY_POLICY);
+    }
+    const speakOutput =
+      requestAttributes.t(
+        'GREETING_MESSAGE',
+        sessionAttributes.firstName ? sessionAttributes.firstName : 'there'
+      ) + repromptOutput;
     return handlerInput.responseBuilder
-      .speak(say + repromptText)
-      .reprompt(repromptText)
+      .speak(speakOutput)
+      .reprompt(repromptOutput)
       .getResponse();
   },
 };
 
-// const MainUseDisclosure = {
-//   canHandle(handlerInput) {
-//     const { request } = handlerInput.requestEnvelope;
-//     return (
-//       !isAccountNotLinked(handlerInput) &&
-//       request.intent.name === 'PrivacyConsentIntent' //  TODO
-//     );
-//   },
-//   handle(handlerInput) {
-// const say =
-//   'We will show you servel privacy-related statements. ' +
-//   'First, we may collect, use and disclose protected health information for certain of our activities, including payment and health care operations to administer our health benefit program effectively. '; //  TODO
-// const repromptText = 'Answer okay or more details. ';
-// const attributes = handlerInput.attributesManager.getSessionAttributes();
-// attributes.skillState = 'MainUseSummary';
-// attributes.isConfiguring = true;
-// handlerInput.attributesManager.setSessionAttributes(attributes);
-// return handlerInput.responseBuilder
-//   .speak(say + repromptText)
-//   .reprompt(repromptText)
-//   .getResponse();
-//   },
-// };
+const DigitalPolicyHandler = {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
+    return (
+      request.intent.name === 'DigitalPolicyIntent'
+    );
+  },
+  handle(handlerInput) {
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const isLoggedIn = isAccountLinked(handlerInput);
+    sessionAttributes.agreedPolicy = isLoggedIn;
+    sessionAttributes.agreedHipaaAuth = false;
+    sessionAttributes.deductibleAllowed = false;
+    sessionAttributes.primaryDoctorAllowed = false;
+    const policyName = isLoggedIn
+      ? 'HIPAA Authorization'
+      : 'Digital Privacy Policy';
+    let repromptOutput = '';
+    const ASK_WRITTEN_OR_LISTEN = `To do that, you can either say, written, and I will send the written version of the ${policyName} to your mobile app. Or you can say, listen, and agreeing to the ${policyName} through voice. Which one do you prefer?`;
+    const card = [];
+    if (isLoggedIn) {
+      // push HIPAA auth
+      repromptOutput =
+        'You need to agree to our HIPAA Authorization in order to use post-password functionalities. This is required because some of the questions require me to access your personal health information. ' +
+        ASK_WRITTEN_OR_LISTEN;
+      card.push('Highmark Health HIPAA Authorization');
+      card.push(POST_LOGIN_HIPAA_AUTH);
+    } else {
+      // push digital privacy policy
+      repromptOutput =
+        'You need to agree to our digital privacy policy in order to use pre-password functionalities. ' +
+        ASK_WRITTEN_OR_LISTEN;
+      card.push('Highmark Health Digital Privacy Policy');
+      card.push(PRE_LOGIN_PRIVACY_POLICY);
+    }
+    const speakOutput =
+      requestAttributes.t(
+        'GREETING_MESSAGE',
+        sessionAttributes.firstName ? sessionAttributes.firstName : 'there'
+      ) + repromptOutput;
+    return handlerInput.responseBuilder
+      .speak(speakOutput)
+      .reprompt(repromptOutput)
+      .getResponse();
+  },
+};
 
-// const DescribeSettings = {
-//   canHandle(handlerInput) {
-//     const { request } = handlerInput.requestEnvelope;
-//     const attributes = handlerInput.attributesManager.getSessionAttributes();
-//     return (
-//       !isAccountNotLinked(handlerInput) &&
-//       request.intent.name === 'PrivacySettingsIntent' //  TODO
-//     );
-//   },
-//   handle(handlerInput) {
-//     const say =
-//       'According to your privacy settings, we will use and disclose your PHI for payment and health care operations, to other covered entities, plan sponsors, public health activities and health oversight agencies. ';
-//     const repromptText = "What's your next request?";
-//     return handlerInput.responseBuilder
-//       .speak(say)
-//       .reprompt(repromptText)
-//       .getResponse();
-//   },
-// };
 
 const revokePersonalSettingsHandler = {
   canHandle(handlerInput) {
@@ -517,11 +549,11 @@ const PolicyDeliverHandler = {
     } else {
       // name === ListenPolicyIntent
       if (isLoggedIn) {
-        say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? '; // TODO:  TOALERT
-        attributes.skillState = 'AuthPHI'; //  TODO:  TOALERT
+        say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? ';
+        attributes.skillState = 'AuthPHI';
       } else {
-        say = 'We will ask you several questions about our digital privacy policy. So first, can Highmark Health collect your basic information via online forms? '; // TODO:  TOALERT
-        attributes.skillState = 'BasicInfo'; //  TODO:  TOALERT
+        say = 'We will ask you several questions about our digital privacy policy. So first, can Highmark Health collect your basic information via online forms? ';
+        attributes.skillState = 'BasicInfo';
       }
       repromptText = 'Answer yes, no, or more details. ';
       attributes.isConfiguring = true;
@@ -696,7 +728,8 @@ exports.handler = skillBuilder
     revokePersonalSettingsHandler,
     PrimaryDoctorHandler,
     PolicyDeliverHandler,
-    HipaaAuthHandler
+    HipaaAuthHandler,
+    DigitalPolicyHandler,
   )
   .addRequestInterceptors(
     GetLinkedInfoInterceptor,
