@@ -97,7 +97,7 @@ const HipaaAuthHandler = {
     const { request } = handlerInput.requestEnvelope;
     return (
       !isAccountNotLinked(handlerInput) &&
-      request.intent.name === 'HipaaAuthIntent'
+      request.intent.name === 'HIPAAAuthIntent'
     );
   },
   handle(handlerInput) {
