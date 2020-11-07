@@ -51,7 +51,7 @@ const GetDeductibleLinkedHandler = {
         .reprompt(repromptOutput)
         .getResponse();
     } else {
-      return handleDisagreedHIPAAAuth(handleDisagreedHIPAAAuth);
+      return handleDisagreedHIPAAAuth(handlerInput);
     }
   },
 };
@@ -113,9 +113,7 @@ const HipaaAuthHandler = {
 const DigitalPolicyHandler = {
   canHandle(handlerInput) {
     const { request } = handlerInput.requestEnvelope;
-    return (
-      request.intent.name === 'DigitalPolicyIntent'
-    );
+    return request.intent.name === 'DigitalPolicyIntent';
   },
   handle(handlerInput) {
     let repromptOutput = '';
@@ -126,7 +124,6 @@ const DigitalPolicyHandler = {
       .getResponse();
   },
 };
-
 
 const revokePersonalSettingsHandler = {
   canHandle(handlerInput) {
@@ -487,10 +484,12 @@ const PolicyDeliverHandler = {
     } else {
       // name === ListenPolicyIntent
       if (isLoggedIn) {
-        say = 'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? ';
+        say =
+          'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? ';
         attributes.skillState = 'AuthPHI';
       } else {
-        say = 'We will ask you several questions about our digital privacy policy. So first, can Highmark Health collect your basic information via online forms? ';
+        say =
+          'We will ask you several questions about our digital privacy policy. So first, can Highmark Health collect your basic information via online forms? ';
         attributes.skillState = 'BasicInfo';
       }
       repromptText = 'Answer yes, no, or more details. ';
@@ -667,7 +666,7 @@ exports.handler = skillBuilder
     PrimaryDoctorHandler,
     PolicyDeliverHandler,
     HipaaAuthHandler,
-    DigitalPolicyHandler,
+    DigitalPolicyHandler
   )
   .addRequestInterceptors(
     GetLinkedInfoInterceptor,
