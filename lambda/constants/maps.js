@@ -1,7 +1,8 @@
 exports.detail_map = {
   AuthPHI: ['AuthBusiness', 'AuthPHIDetail1'],
   AuthPHIDetail1: ['AuthBusiness', 'AuthPHIDetail2'],
-  AuthPHIDetail2: ['AuthBusiness', 'AuthBusiness'],
+  AuthPHIDetail2: ['AuthBusiness', 'AuthPHIDetail3'],
+  AuthPHIDetail3: ['AuthBusiness', 'AuthBusiness'],
   AuthBusiness: ['AuthThirdParty', 'AuthBusinessDetail1'],
   AuthBusinessDetail1: ['AuthThirdParty', 'AuthBusinessDetail2'],
   AuthBusinessDetail2: ['AuthThirdParty', 'AuthThirdParty'],
@@ -23,13 +24,15 @@ exports.detail_map = {
 
 exports.question_map = {
   AuthPHI:
-    'Can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? ',
+    'Can Highmark Health use and disclose your PHI? ',
   AuthPHIDetail1:
-    'To offer this personalized experience, Highmark Health must collect, use, and disclose personal information across our digital tools and channels. This information can include, among other things, demographics such as your name and date of birth, contact information such as phone number, address, and email address, details about receipt of healthcare services such as dates of service and medical conditions and procedures, details about your insurance benefits such as policy number and claims, and information about your activities on our digital tools and channels such as internet protocol address, device identifier, and cookie ID. By studying the ways in which you navigate through our digital tools and channels, we can continuously improve and optimize the information and programs that match your needs and interests to deliver the right information at the right time throughout your healthcare experience. ',
+    'Your PHI is including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface. ',
   AuthPHIDetail2:
+    'To offer this personalized experience, Highmark Health must collect, use, and disclose personal information across our digital tools and channels. This information can include, among other things, demographics such as your name and date of birth, contact information such as phone number, address, and email address, details about receipt of healthcare services such as dates of service and medical conditions and procedures, details about your insurance benefits such as policy number and claims, and information about your activities on our digital tools and channels such as internet protocol address, device identifier, and cookie ID. ',
+  AuthPHIDetail3:
     'If you have any more questions, please call our customer service at 1-800-241-5704 with your member ID handy. ',
   AuthBusiness:
-    'Can Highmark Health disclose your PHI to its business partners, including but not limited to Google, for purposes of supporting the Program? This Authorization will remain in effect until you revoke it by notifying Highmark Health in writing as specified herein. ',
+    'Can Highmark Health disclose your PHI to its business partners, including but not limited to Google, for purposes of supporting the Program? ',
   AuthBusinessDetail1:
     'Highmark Health is collaborating with companies including Google on digital improvement projects supporting the Program. Our collaborations allow us to offer capabilities such as real-time chat sessions where users can ask questions on our member portal like “have I met my deductible this year” and similar inquiries. These projects require that Highmark Health share your Personal Information with its business partners (like Google) for product and solution development, testing, and refinement purposes. ',
   AuthBusinessDetail2:

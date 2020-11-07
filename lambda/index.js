@@ -485,7 +485,7 @@ const PolicyDeliverHandler = {
       // name === ListenPolicyIntent
       if (isLoggedIn) {
         say =
-          'We will ask you several questions about our HIPAA Authrozation policy. So first, can we collect Highmark Health disclose you PHI, including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface? ';
+          'We will ask you several questions about our HIPAA Authrozation policy. So first, can Highmark Health use and disclose your PHI? ';
         attributes.skillState = 'AuthPHI';
       } else {
         say =
