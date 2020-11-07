@@ -197,7 +197,7 @@ const OptionsHandler = {
   handle(handlerInput) {
     const option = handlerInput.requestEnvelope.request.intent.name;
     const attributes = handlerInput.attributesManager.getSessionAttributes();
-    let repromptText = 'Answer okay, or more details. ';
+    let repromptText = 'Answer yes, no, or more details. ';
     let say = '';
     if (attributes.isAskingDeductible) {
       repromptText = "What's your next request? ";
@@ -258,7 +258,7 @@ const OptionsHandler = {
       detail_map[attributes.skillState][0] ===
         detail_map[attributes.skillState][1]
     ) {
-      repromptText = 'Answer yes or no to listen to the next statement. ';
+      repromptText = 'Answer yes or no to listen to the next question. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
