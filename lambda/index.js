@@ -101,41 +101,10 @@ const HipaaAuthHandler = {
     );
   },
   handle(handlerInput) {
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
-    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const isLoggedIn = isAccountLinked(handlerInput);
-    sessionAttributes.agreedPolicy = isLoggedIn;
-    sessionAttributes.agreedHipaaAuth = false;
-    sessionAttributes.deductibleAllowed = false;
-    sessionAttributes.primaryDoctorAllowed = false;
-    const policyName = isLoggedIn
-      ? 'HIPAA Authorization'
-      : 'Digital Privacy Policy';
     let repromptOutput = '';
-    const ASK_WRITTEN_OR_LISTEN = `To do that, you can either say, written, and I will send the written version of the ${policyName} to your mobile app. Or you can say, listen, and agreeing to the ${policyName} through voice. Which one do you prefer?`;
-    const card = [];
-    if (isLoggedIn) {
-      // push HIPAA auth
-      repromptOutput =
-        'You need to agree to our HIPAA Authorization in order to use post-password functionalities. This is required because some of the questions require me to access your personal health information. ' +
-        ASK_WRITTEN_OR_LISTEN;
-      card.push('Highmark Health HIPAA Authorization');
-      card.push(POST_LOGIN_HIPAA_AUTH);
-    } else {
-      // push digital privacy policy
-      repromptOutput =
-        'You need to agree to our digital privacy policy in order to use pre-password functionalities. ' +
-        ASK_WRITTEN_OR_LISTEN;
-      card.push('Highmark Health Digital Privacy Policy');
-      card.push(PRE_LOGIN_PRIVACY_POLICY);
-    }
-    const speakOutput =
-      requestAttributes.t(
-        'GREETING_MESSAGE',
-        sessionAttributes.firstName ? sessionAttributes.firstName : 'there'
-      ) + repromptOutput;
+    const ASK_WRITTEN_OR_LISTEN = `To agree to our HIPAA Authorization, you can either say, written, and I will send the written version of the HIPAA Authorization to your mobile app. Or you can say, listen, and agreeing to the HIPAA Authorization through voice. Which one do you prefer?`;
     return handlerInput.responseBuilder
-      .speak(speakOutput)
+      .speak(ASK_WRITTEN_OR_LISTEN)
       .reprompt(repromptOutput)
       .getResponse();
   },
