@@ -406,7 +406,7 @@ const CopayHandler = {
         'A copay is the set amount you pay for a covered healthcare service. You may be also responsible for additional charges, such as those for non-preventive services. ';
     } else {
       say =
-        'You have not agreed our digital privacy policy, so we can not proceed your request. ';
+        'You have not agreed our digital privacy policy, so we can not proceed your request. To do that, please say, digital privacy policy. ';
     }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
@@ -429,7 +429,7 @@ const MedicalcareHandler = {
         "Medicare is a national health insurance program providing coverage for Americans aged 65 and older. It also covers younger people with a disability, as well as people with end stage renal disease and amyotrophic lateral sclerosis (ALS) or Lou Gehrig's disease. ";
     } else {
       say =
-        'You have not agreed our digital privacy policy, so we can not proceed your request. ';
+        'You have not agreed our digital privacy policy, so we can not proceed your request. To do that, please say, digital privacy policy. ';
     }
     return handlerInput.responseBuilder
       .speak(say + repromptText)
