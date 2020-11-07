@@ -69,10 +69,14 @@ exports.GetLinkedInfoInterceptor = {
       // console.log('GetLinkedInfoInterceptor: getUserData: ', userData);
       if (userData.Username !== undefined) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        const fullName = getAttribute(userData.UserAttributes, 'name');
-        const [firstName, lastName] = fullName.split(' ');
-        sessionAttributes.firstName = firstName;
-        sessionAttributes.lastName = lastName;
+        sessionAttributes.firstName = getAttribute(
+          userData.UserAttributes,
+          'given_name'
+        );
+        sessionAttributes.surname = getAttribute(
+          userData.UserAttributes,
+          'family_name'
+        );
         sessionAttributes.emailAddress = getAttribute(
           userData.UserAttributes,
           'email'
