@@ -41,7 +41,7 @@ const GetDeductibleLinkedHandler = {
         say =
           'You’ve got our BLUE CARD plan, which has an individual deductible of $250 for In-Network. For additional information about your benefits you can visit the Coverage page. ';
       } else {
-        say = 'Can we use your deductible data to offer the service? ';
+        say = 'Can this skill use your deductible data to offer the service? ';
         repromptOutput = 'Answer yes or no. ';
         sessionAttributes.isAskingDeductible = true;
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
@@ -76,7 +76,7 @@ const PrimaryDoctorHandler = {
           'Your primary doctor is John Doe and his phone number is 111-111-1234. ';
       } else {
         say =
-          'Can we access your primary doctor information to offer the service? ';
+          'Can this skill access your primary doctor information to offer the service? ';
         repromptOutput = 'Answer yes or no. ';
         sessionAttributes.isAskingDoctor = true;
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
