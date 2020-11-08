@@ -24,7 +24,7 @@ exports.detail_map = {
 
 exports.question_map = {
   AuthPHI:
-    'Can Highmark Health use and disclose your PHI? ',
+    'Can Highmark Health use and disclose your protected health information? ',
   AuthPHIDetail1:
     'Your PHI is including but not limited to information maintained in my health plan’s member portal such as policy number, co-pay, co-insurance, and deductible information, dates of service, and claims information, and any information you freely share through the two-way chatbot interface. ',
   AuthPHIDetail2:
@@ -32,9 +32,9 @@ exports.question_map = {
   AuthPHIDetail3:
     'If you have any more questions, please call our customer service at 1-800-241-5704 with your member ID handy. ',
   AuthBusiness:
-    'Can Highmark Health disclose your PHI to its business partners, including but not limited to Google, for purposes of supporting the Program? ',
+    'Can Highmark Health disclose your PHI to its business partners, including but not limited to Amazon, for purposes of supporting the Program? ',
   AuthBusinessDetail1:
-    'Highmark Health is collaborating with companies including Google on digital improvement projects supporting the Program. Our collaborations allow us to offer capabilities such as real-time chat sessions where users can ask questions on our member portal like “have I met my deductible this year” and similar inquiries. These projects require that Highmark Health share your Personal Information with its business partners (like Google) for product and solution development, testing, and refinement purposes. ',
+    'Highmark Health is collaborating with companies including Amazon on digital improvement projects supporting the Program. Our collaborations allow us to offer capabilities such as real-time chat sessions where users can ask questions on our member portal like “what is my deductible” and similar inquiries. These projects require that Highmark Health share your Personal Information with its business partners (like Amazon) for product and solution development, testing, and refinement purposes. ',
   AuthBusinessDetail2:
     'If you have any more questions, please call our customer service at 1-800-241-5704 with your member ID handy. ',
   AuthThirdParty:

@@ -221,7 +221,6 @@ const OptionsHandler = {
     }
     if (
       detail_map[attributes.skillState] &&
-      detail_map[attributes.skillState][0] !== 'allDone' &&
       detail_map[attributes.skillState][0] ===
         detail_map[attributes.skillState][1]
     ) {
