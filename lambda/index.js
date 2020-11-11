@@ -484,7 +484,7 @@ const PolicyDeliverHandler = {
       // name === ListenPolicyIntent
       if (isLoggedIn) {
         say =
-          'We will ask you several questions about our HIPAA Authrozation policy. So first, can Highmark Health use and disclose your PHI? ';
+          'We will ask you several questions about our HIPAA Authrozation policy. So first, can Highmark Health use and disclose your protected health information, aka PHI? ';
         attributes.skillState = 'AuthPHI';
       } else {
         say =
