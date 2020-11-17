@@ -224,7 +224,7 @@ const OptionsHandler = {
       detail_map[attributes.skillState][0] ===
         detail_map[attributes.skillState][1]
     ) {
-      repromptText = 'Answer yes or no to listen to the next question. ';
+      repromptText = 'Answer yes or no to continue. ';
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
     say = question_map[attributes.skillState];
