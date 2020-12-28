@@ -2,6 +2,11 @@
   "interactionModel": {
     "languageModel": {
       "invocationName": "highmark assistant",
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      },
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -59,6 +64,145 @@
             "what are {infoTypeRequested}",
             "tell me {infoTypeRequested}"
           ]
+        },
+        {
+          "name": "GetDeductibleIntent",
+          "slots": [],
+          "samples": [
+            "how much is my deductible",
+            "tell me my deductible",
+            "what is my deductible"
+          ]
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "MoreDetailsIntent",
+          "slots": [],
+          "samples": ["learn more", "more details"]
+        },
+        {
+          "name": "PrivacyConsentIntent",
+          "slots": [],
+          "samples": [
+            "review my settings",
+            "review privacy settings",
+            "review privacy policy",
+            "review",
+            "privacy policy review",
+            "privacy consent interface",
+            "privacy consent"
+          ]
+        },
+        {
+          "name": "AgreeIntent",
+          "slots": [],
+          "samples": ["consent", "agree", "I agree"]
+        },
+        {
+          "name": "DisagreeIntent",
+          "slots": [],
+          "samples": ["I disagree", "disagree"]
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "WhatIsDeductibleIntent",
+          "slots": [],
+          "samples": [
+            "what do you mean by deductible",
+            "what does decutible mean",
+            "what is deductible",
+            "what is a deductible"
+          ]
+        },
+        {
+          "name": "WhatIsCopayIntent",
+          "slots": [],
+          "samples": [
+            "I don't know what copay means",
+            "what do you mean by copay",
+            "what is a copay",
+            "what is copay"
+          ]
+        },
+        {
+          "name": "WhatIsMedicareIntent",
+          "slots": [],
+          "samples": [
+            "tell me what medicare means",
+            "i don't know what medicare means",
+            "what do you mean by medicare",
+            "what does medicare mean",
+            "what is a medicare",
+            "what is medicare"
+          ]
+        },
+        {
+          "name": "RevokeIntent",
+          "slots": [],
+          "samples": [
+            "revoke privacy consent",
+            "revoke privacy configurations",
+            "revoke all configurations",
+            "revoke my settings",
+            "revoke",
+            "revoke my privacy consent"
+          ]
+        },
+        {
+          "name": "PrimaryDoctorIntent",
+          "slots": [],
+          "samples": [
+            "principle doctor",
+            "main doctor",
+            "primary doctor",
+            "who is my primary doctor"
+          ]
+        },
+        {
+          "name": "WrittenPolicyIntent",
+          "slots": [],
+          "samples": [
+            "written hipaa auth",
+            "written hipaa authorization",
+            "written digital privacy policy",
+            "written policy",
+            "written"
+          ]
+        },
+        {
+          "name": "ListenPolicyIntent",
+          "slots": [],
+          "samples": [
+            "listen hipaa auth",
+            "listen hipaa authorization",
+            "listen digital privacy policy",
+            "listen policy",
+            "listen"
+          ]
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "DigitalPolicyIntent",
+          "slots": [],
+          "samples": ["digital policy", "digital privacy policy"]
+        },
+        {
+          "name": "HIPAAAuthIntent",
+          "slots": [],
+          "samples": ["hipaa auth", "hipaa authorization"]
         }
       ],
       "types": [
